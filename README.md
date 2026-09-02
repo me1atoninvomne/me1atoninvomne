@@ -1,6 +1,6 @@
 ### Hi, I'm Denis — SQL Analyst & Manual QA Specialist
 
-Recent Applied Economics graduate (Comenius University, Bratislava) working
+
 at the intersection of data analysis and quality assurance: functional
 testing, bug tracking, API testing with Postman, and SQL-based reporting.
 The three repos below are self-contained projects built to show the actual
