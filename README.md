@@ -224,7 +224,7 @@ E-Mail ─► Text (pdf.js / E-Mail-Text) ─► Klassifizieren ─► Extrahier
 ## Тесты
 
 ```bash
-npm test                                      # 49 unit/integration tests
+npm test                                      # 54 unit/integration tests
 E2E_BASE_URL=http://localhost:3000 npm run test:e2e   # против запущенного сервера
 npm run test:e2e                              # сам запускает `npm start` на :3100 (после build)
 ```
@@ -232,6 +232,10 @@ npm run test:e2e                              # сам запускает `npm s
 E2E проверяет основной сценарий через UI: письмо → проверка → принятие отклонения → подтверждение → черновик в ERP → журнал; принцип четырёх глаз со сменой пользователя; smoke-тест всех страниц без ошибок JS и без горизонтальной прокрутки на desktop и mobile; переключение языка.
 
 Если Playwright не может скачать браузер, укажите свой Chromium: `PW_CHROMIUM_PATH=/path/to/chromium`.
+
+Вспомогательные скрипты для визуальной проверки (против запущенного сервера):
+- `node scripts/shot.mjs <prefix> /app/inbox /app/review` — скриншоты (`WIDTH=390` для мобильной ширины, `NEWDEMO=1 PROCESS=1` для нового демо с обработкой);
+- `node scripts/pdfcheck.mjs out.png` — проверка превью PDF с подсветкой найденного места.
 
 ---
 

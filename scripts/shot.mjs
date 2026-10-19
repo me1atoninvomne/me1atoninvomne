@@ -1,12 +1,14 @@
-// Usage: node scripts-shot.mjs <outPrefix> <path1> [path2 ...]   env: WIDTH, PROCESS=1, LANG=en, NEWDEMO=1
+// Screenshot helper for visual QA against a running instance.
+// Usage: node scripts/shot.mjs <outPrefix> <path1> [path2 ...]
+// env: BASE, WIDTH, HEIGHT, FULL=0, NEWDEMO=1, INDUSTRY, PROCESS=1, LANG_EN=1, STATE, PW_CHROMIUM_PATH
 import { chromium } from "@playwright/test";
 import fs from "node:fs";
 const out = process.argv[2];
 const paths = process.argv.slice(3);
 const base = process.env.BASE ?? "http://localhost:3000";
 const width = Number(process.env.WIDTH ?? 1440);
-const stateFile = process.env.STATE ?? "/tmp/claude-0/-home-user/39a1dc46-295c-5084-a024-f089e0de5709/scratchpad/state.json";
-const browser = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium" });
+const stateFile = process.env.STATE ?? "data/.shot-state.json";
+const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM_PATH || undefined });
 const ctx = await browser.newContext({
   viewport: { width, height: Number(process.env.HEIGHT ?? 900) },
   deviceScaleFactor: 1,

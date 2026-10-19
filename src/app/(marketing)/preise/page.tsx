@@ -19,6 +19,7 @@ export default async function PricingPage() {
         <div className="mb-6 flex flex-wrap items-center gap-2 text-sm">
           <span className="rounded-md bg-amber-50 px-2 py-0.5 font-medium text-amber-800 ring-1 ring-amber-200 ring-inset">{t.intro}</span>
           <span className="text-slate-500">{t.vat}</span>
+          <span className="basis-full text-[13px] text-slate-500">{t.connectorNote}</span>
         </div>
         <div className="grid gap-6 lg:grid-cols-3 lg:gap-4">
           {t.tiers.map((tier) => {

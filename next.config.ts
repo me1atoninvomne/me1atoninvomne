@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
   cacheComponents: false,
   output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
   serverExternalPackages: ["@libsql/client", "libsql"],
+  // Never bundle local databases or test artefacts into the standalone output.
+  outputFileTracingExcludes: { "*": ["./data/**", "./tests/**", "./scripts/**", "./test-results/**"] },
   poweredByHeader: false,
   devIndicators: false,
   turbopack: {

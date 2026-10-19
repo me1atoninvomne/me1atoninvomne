@@ -13,8 +13,8 @@ export function HeroVisual() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setStage(0);
-    let s = 0;
+    // Start from the complete state (as rendered on the server) and only then loop through the stages.
+    let s = 3;
     const id = setInterval(() => {
       s = (s + 1) % 6; // two extra ticks to hold the final state
       setStage(Math.min(s, 3));
