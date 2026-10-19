@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, CheckCircle2, ExternalLink, Eye, FileText, RotateCcw, ShieldAlert } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { fieldsForDocType, FIELD_KIND } from "@/domain/documents";
 import type { DocType, Extraction, FieldKey, LineItem, ValidationIssue } from "@/domain/types";
 import { fmt } from "@/i18n/core";
@@ -18,6 +18,7 @@ import { Input } from "../../ui/form";
 import { Segmented } from "../../ui/tabs";
 import { Tooltip } from "../../ui/overlay";
 import { ConfidenceBadge, SeverityIcon } from "../badges";
+import { PdfCanvas } from "./pdf-canvas";
 
 /* ---------- Document viewer ---------- */
 
@@ -26,11 +27,9 @@ export function DocumentViewer({ detail, highlight }: { detail: DocumentDetail; 
   const { doc } = detail;
   const hasPdf = doc.hasFile;
   const [mode, setMode] = useState<"pdf" | "text">(hasPdf ? "pdf" : "text");
+  const [nativeViewer, setNativeViewer] = useState(false);
   const textRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (highlight) setMode("text");
-  }, [highlight]);
+  const fallback = useCallback(() => setNativeViewer(true), []);
 
   useEffect(() => {
     if (mode !== "text" || !highlight) return;
@@ -59,7 +58,13 @@ export function DocumentViewer({ detail, highlight }: { detail: DocumentDetail; 
       </div>
       {doc.contentDeletedAt && <Callout tone="neutral" className="m-3">{t.viewer.deleted}</Callout>}
       {mode === "pdf" && hasPdf ? (
-        <iframe title={doc.fileName ?? "PDF"} src={`/api/documents/${doc.id}/file#toolbar=0&navpanes=0&view=FitH`} className="min-h-[520px] w-full flex-1 bg-slate-100 lg:min-h-[640px]" />
+        nativeViewer ? (
+          <iframe title={doc.fileName ?? "PDF"} src={`/api/documents/${doc.id}/file#toolbar=0&navpanes=0&view=FitH`} className="min-h-[520px] w-full flex-1 bg-slate-100 lg:min-h-[640px]" />
+        ) : (
+          <div className="max-h-[78vh] overflow-auto">
+            <PdfCanvas url={`/api/documents/${doc.id}/file`} highlight={highlight} onFallback={fallback} />
+          </div>
+        )
       ) : (
         <div ref={textRef} className="max-h-[680px] min-h-[320px] flex-1 overflow-auto bg-slate-50/60 px-4 py-3">
           {!hasPdf && <p className="mb-2 text-xs text-slate-500">{t.viewer.noFile}</p>}

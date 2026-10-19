@@ -3,6 +3,7 @@ import { z } from "zod";
 import { DEFAULT_INDUSTRY, INDUSTRY_KEYS } from "@/domain/templates";
 import { sessionCookieOptions, USER_COOKIE, WS_COOKIE } from "@/server/auth/session";
 import { errorResponse } from "@/server/http";
+import { rateLimit } from "@/server/rate-limit";
 import { createDemoWorkspace } from "@/server/services/workspace";
 
 const Input = z.object({ industry: z.enum(INDUSTRY_KEYS).default(DEFAULT_INDUSTRY) });
@@ -10,6 +11,7 @@ const Input = z.object({ industry: z.enum(INDUSTRY_KEYS).default(DEFAULT_INDUSTR
 /** Creates an isolated demo workspace. Accepts a plain HTML form (redirect) or JSON. */
 export async function POST(req: Request) {
   try {
+    rateLimit(req, "demo-start", 30, 60 * 60 * 1000);
     const isForm = (req.headers.get("content-type") ?? "").includes("form");
     const raw = isForm ? Object.fromEntries((await req.formData()).entries()) : await req.json().catch(() => ({}));
     const { industry } = Input.parse(raw);

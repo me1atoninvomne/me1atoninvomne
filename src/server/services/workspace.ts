@@ -26,6 +26,16 @@ const DEMO_USERS = [
   { key: "viewer", name: "Dr. Stefan Roth", role: "viewer", department: "management", title: { de: "Geschäftsführung (Lesezugriff)", en: "Managing director (read only)" } },
 ] as const;
 
+const translit = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .replace(/ß/g, "ss")
+    .replace(/ı/g, "i")
+    .replace(/[^a-z0-9]/g, "");
+
 const DOC_MIX: Record<string, number> = { purchase_order: 0.35, invoice: 0.25, order_confirmation: 0.15, delivery_note: 0.12, rfq: 0.06, delay_notice: 0.07 };
 
 export function defaultSettings(industry: IndustryKey): WorkspaceSettings {
@@ -84,7 +94,7 @@ async function seedUsers(db: Db, workspaceId: string) {
       id,
       workspaceId,
       name: u.name,
-      email: `${first.toLowerCase()}.${rest.join("").toLowerCase().replace("ı", "i")}@muster-antriebstechnik.example`,
+      email: `${translit(first)}.${translit(rest.join(""))}@muster-antriebstechnik.example`,
       role: u.role,
       department: u.department,
       title: u.title,

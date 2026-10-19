@@ -2,6 +2,7 @@ import { z } from "zod";
 import { getDb, schema } from "@/server/db/client";
 import { api, readJson } from "@/server/http";
 import { newId, nowIso } from "@/server/ids";
+import { rateLimit } from "@/server/rate-limit";
 
 const Input = z.object({
   name: z.string().trim().min(2).max(120),
@@ -17,6 +18,7 @@ const Input = z.object({
 
 /** Stores a consultation request. No e-mail is sent from this demo installation. */
 export const POST = api(async (req) => {
+  rateLimit(req, "leads", 10, 60 * 60 * 1000);
   const data = await readJson(req, Input);
   const db = await getDb();
   await db.insert(schema.leads).values({

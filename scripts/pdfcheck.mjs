@@ -1,0 +1,17 @@
+import { chromium } from "@playwright/test";
+const S = "/tmp/claude-0/-home-user/39a1dc46-295c-5084-a024-f089e0de5709/scratchpad";
+const browser = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium" });
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 }, storageState: S + "/state.json" });
+const page = await ctx.newPage();
+const logs = [];
+page.on("console", (m) => logs.push(m.type() + ": " + m.text()));
+page.on("pageerror", (e) => logs.push("pageerror: " + e.message));
+await page.goto("http://localhost:3000/app/documents/" + process.argv[2], { waitUntil: "networkidle" });
+await page.waitForTimeout(2500);
+const eyes = page.getByRole("button", { name: /Fundstelle anzeigen/ });
+console.log("eye buttons", await eyes.count());
+await eyes.nth(Number(process.argv[3] ?? 0)).click();
+await page.waitForTimeout(800);
+await page.screenshot({ path: S + "/shots/pdf-hl.png", fullPage: false });
+console.log(logs.join("\n") || "no logs");
+await browser.close();

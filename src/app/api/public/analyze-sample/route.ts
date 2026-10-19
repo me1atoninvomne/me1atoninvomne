@@ -7,6 +7,7 @@ import { renderPdf } from "@/server/documents/pdf-render";
 import { api, readJson } from "@/server/http";
 import { todayIso } from "@/server/ids";
 import { analyzeDocument } from "@/server/pipeline/analyze";
+import { rateLimit } from "@/server/rate-limit";
 
 const SAMPLES = ["po_price_mismatch", "inv_iban_changed", "delay_critical", "po_clean"] as const;
 const Input = z.object({ key: z.enum(SAMPLES) });
@@ -16,6 +17,7 @@ const Input = z.object({ key: z.enum(SAMPLES) });
  * anything. No upload of visitor data is possible here.
  */
 export const POST = api(async (req) => {
+  rateLimit(req, "analyze-sample", 120, 60 * 60 * 1000);
   const { key } = await readJson(req, Input);
   const today = todayIso();
   const e = buildCorpus(today)[key];

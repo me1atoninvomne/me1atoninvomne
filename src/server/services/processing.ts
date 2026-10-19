@@ -297,7 +297,7 @@ export async function applyRouting(
   );
   await audit(db, {
     workspaceId: ctx.workspaceId,
-    ...(actor ? { actorType: "system" as const, actorId: "routing", actorName: "FlowPilot AI" } : AI_ACTOR),
+    ...(opts.humanInLoop ? { actorType: "system" as const, actorId: "routing", actorName: "FlowPilot AI" } : AI_ACTOR),
     action: "document.routed",
     entityType: "document",
     entityId: doc.id,
@@ -315,7 +315,8 @@ export async function applyRouting(
     const type = x.docType === "delay_notice" ? "delay" : x.docType === "rfq" ? "quote" : route === "review" ? "review" : "approval";
     const title = pair((l) => {
       const d = dom(l);
-      return `${d.taskType[type]}: ${d.docType[x.docType]} ${x.fields.documentNumber?.value ?? x.fields.referenceNumber?.value ?? ""} – ${partyName ?? d.unknown}`.replace(/\s+–/, " –");
+      const ref = x.fields.documentNumber?.value ?? x.fields.referenceNumber?.value ?? doc.fileName ?? "";
+      return [`${d.taskType[type]}: ${d.docType[x.docType]} ${ref}`.trim(), partyName].filter(Boolean).join(" – ");
     });
     await db.insert(schema.tasks).values({
       id: newId("tsk"),

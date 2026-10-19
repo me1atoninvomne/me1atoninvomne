@@ -23,7 +23,7 @@ import { ConfidenceBadge, DocTypeBadge, PriorityBadge, RouteBadge, SeverityIcon,
 
 type Filter = "all" | "new" | "review" | "auto" | "critical";
 const STEPS = ["text", "classify", "extract", "match", "validate", "rules", "route"] as const;
-const STEP_MS = 170;
+const STEP_MS = 130;
 
 interface LiveState {
   running: boolean;
@@ -303,6 +303,7 @@ function LivePanel({ live, emails, done, summary }: { live: LiveState; emails: I
 
 function EmailRow({ email, selected, liveStep, onSelect }: { email: InboxEmail; selected: boolean; liveStep: number | null; onSelect: () => void }) {
   const t = useT(inboxDict);
+  const d = useDomain();
   const f = useFormat();
   const lang = useLang();
   const isNew = email.status === "new";
@@ -339,7 +340,7 @@ function EmailRow({ email, selected, liveStep, onSelect }: { email: InboxEmail; 
         )}
         <div className="mt-2 flex flex-wrap items-center gap-1.5">
           {email.status === "new" && <Badge tone="info">{t.notProcessed}</Badge>}
-          {email.status === "error" && <Badge tone="danger">Fehler</Badge>}
+          {email.status === "error" && <Badge tone="danger">{d.emailStatus.error}</Badge>}
           {email.status === "processed" && main && (
             <>
               <DocTypeBadge type={main.docType} />
@@ -391,7 +392,7 @@ function EmailDetail({ email, canProcess, liveStep, onProcess }: { email: InboxE
           ) : (
             <Callout
               tone={email.status === "error" ? "danger" : "info"}
-              title={email.status === "error" ? (email.error ?? "Fehler") : t.notProcessed}
+              title={email.status === "error" ? (email.error ?? d.emailStatus.error) : t.notProcessed}
               action={
                 <Button size="sm" variant="primary" onClick={onProcess} disabled={!canProcess} icon={<Play className="size-4" />}>
                   {t.processNow}

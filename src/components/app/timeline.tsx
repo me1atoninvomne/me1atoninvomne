@@ -33,7 +33,9 @@ export function AuditTimeline({ events, showDocumentLinks, dense }: { events: Ti
             {i < events.length - 1 && <span className="absolute top-7 bottom-0 left-[13px] w-px bg-slate-200" aria-hidden />}
             <ActorIcon type={e.actorType} />
             <div className="min-w-0 flex-1 pt-0.5">
-              <p className="text-[13px] leading-snug text-slate-800">{auditText(e.action, e.params, lang, f)}</p>
+              <p className="text-[13px] leading-snug text-slate-800">
+                {auditText(e.action, reasons && reasons.length > 1 ? { ...e.params, reasonTexts: undefined } : e.params, lang, f)}
+              </p>
               {reasons && reasons.length > 1 && (
                 <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-slate-600">
                   {reasons.map((r) => (

@@ -220,8 +220,8 @@ const ruleShortLead: Rule = {
 const ruleDelayPriority = (days: number, department: "sales" | "production" | "logistics"): Rule => ({
   id: `r-delay-${days}-${department}`,
   name: {
-    de: `Verzug über ${days} Tage → ${department === "sales" ? "Vertrieb/Kundenservice" : department === "production" ? "Produktionsplanung" : "Disposition"} informieren, Priorität hoch`,
-    en: `Delay above ${days} days → inform ${department === "sales" ? "sales/customer service" : department === "production" ? "production planning" : "dispatch"}, high priority`,
+    de: `Verzug über ${days} Tage → ${department === "sales" ? "Vertrieb/Kundenservice" : department === "production" ? "Produktionsplanung" : "Disposition"} informieren`,
+    en: `Delay above ${days} days → inform ${department === "sales" ? "sales/customer service" : department === "production" ? "production planning" : "dispatch"}`,
   },
   enabled: true,
   docTypes: ["delay_notice"],

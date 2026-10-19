@@ -7,6 +7,7 @@ import { getExceptions, getNotifications } from "@/server/services/queries";
 
 export const dynamic = "force-dynamic";
 
+
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const s = await getSession();
   if (!s) redirect("/demo?expired=1");

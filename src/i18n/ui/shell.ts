@@ -33,6 +33,7 @@ export const shellDict = defineDict({
       done: "erledigt",
     },
     leaveDemo: "Zur Website",
+    adapterActive: "Demo-Adapter aktiv",
     readOnlyHint: "Lesezugriff – Aktionen sind für Ihre Rolle deaktiviert.",
   },
   en: {
@@ -67,6 +68,7 @@ export const shellDict = defineDict({
       done: "done",
     },
     leaveDemo: "To website",
+    adapterActive: "Demo adapter active",
     readOnlyHint: "Read access – actions are disabled for your role.",
   },
 });

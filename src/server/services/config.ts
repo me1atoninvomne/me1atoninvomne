@@ -44,7 +44,7 @@ export async function updateWorkflow(s: Session, workflowId: string, input: z.in
   if (wf.docTypes.includes("invoice") && next.autoProcess) throw new AppError("financial_auto_locked", 400);
   const changes = (Object.keys(next) as (keyof typeof next)[])
     .filter((k) => JSON.stringify(next[k]) !== JSON.stringify(wf.params[k]))
-    .map((k) => `${k}: ${fmtVal(wf.params[k])} → ${fmtVal(next[k])}`);
+    .map((k) => ({ key: k, from: wf.params[k] ?? null, to: next[k] ?? null }));
   const activeChanged = input.active !== undefined && input.active !== wf.active;
   if (changes.length === 0 && !activeChanged) return wf;
   const version = wf.version + (changes.length > 0 ? 1 : 0);
@@ -59,7 +59,6 @@ export async function updateWorkflow(s: Session, workflowId: string, input: z.in
   return { ...wf, params: next, version };
 }
 
-const fmtVal = (v: unknown) => (v == null ? "—" : typeof v === "number" && v <= 1 && v > 0 ? `${Math.round(v * 100)} %` : String(v));
 
 /** Dry run: how would the current workflow and rules route an already processed document? */
 export async function simulateWorkflow(s: Session, workflowId: string, documentId: string, overrides?: Partial<z.infer<typeof WorkflowParamsSchema>>) {

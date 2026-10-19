@@ -317,7 +317,8 @@ function parseFreeTextItems(ctx: Ctx): LineItem[] {
 
 export function extractWithRules(input: ExtractInput): Extraction {
   const lines = input.layout.lines.map((l) => l.text);
-  const cells = lines.flatMap((l) => [l, ...l.split("\t")]).map((c) => c.trim()).filter(Boolean);
+  // Individual columns first, so that a field's source points to the smallest matching cell.
+  const cells = lines.flatMap((l) => (l.includes("\t") ? [...l.split("\t"), l] : [l])).map((c) => c.trim()).filter(Boolean);
   const ctx: Ctx = { lines, cells, docType: input.docType, input };
   const fields: Extraction["fields"] = {};
 

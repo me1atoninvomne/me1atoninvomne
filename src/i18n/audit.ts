@@ -13,23 +13,52 @@ const s = (v: unknown) => (v == null || v === "" ? "—" : String(v));
 const dt = (d: DomainDict, v: unknown) => (v ? d.docType[v as DocType] ?? s(v) : "—");
 const list = (v: unknown) => (Array.isArray(v) ? v.join(", ") : s(v));
 
+const PARAM_LABEL: Record<string, { de: string; en: string }> = {
+  autoProcess: { de: "Automatische Verarbeitung", en: "Automatic processing" },
+  minConfidence: { de: "Mindestsicherheit", en: "Minimum confidence" },
+  maxAutoAmount: { de: "Grenze automatisch", en: "Automatic limit" },
+  approvalLimit: { de: "Freigabelimit", en: "Approval limit" },
+  reviewDepartment: { de: "Prüfende Abteilung", en: "Reviewing department" },
+  notifyDepartment: { de: "Benachrichtigung", en: "Notification" },
+  slaHours: { de: "Bearbeitungsfrist", en: "Handling deadline" },
+  targetSystem: { de: "Zielsystem", en: "Target system" },
+};
+
+/** Renders structured workflow changes ({ key, from, to }); older string entries are shown as-is. */
+function changeList(changes: unknown, d: DomainDict, f: Formatters, lang: Lang): string {
+  if (!Array.isArray(changes)) return s(changes);
+  const val = (key: string, v: unknown) => {
+    if (v == null) return "—";
+    if (typeof v === "boolean") return v ? (lang === "de" ? "an" : "on") : lang === "de" ? "aus" : "off";
+    if (key === "minConfidence") return f.percent(Number(v));
+    if (key === "maxAutoAmount" || key === "approvalLimit") return f.money(Number(v), { decimals: 0 });
+    if (key === "slaHours") return `${v} ${lang === "de" ? "Std." : "h"}`;
+    if (key === "reviewDepartment" || key === "notifyDepartment") return d.department[v as keyof DomainDict["department"]] ?? s(v);
+    if (key === "targetSystem") return v === "demo_erp" ? "Demo-ERP" : lang === "de" ? "keine Übergabe" : "no transfer";
+    return s(v);
+  };
+  return changes
+    .map((c) => (typeof c === "string" ? c : `${PARAM_LABEL[c.key]?.[lang] ?? c.key}: ${val(c.key, c.from)} → ${val(c.key, c.to)}`))
+    .join(", ");
+}
+
 const de: Record<string, R> = {
   "workspace.created": (p) => `Demo-Arbeitsbereich angelegt (Branchenvorlage: ${s(p.industryLabel)}). Alle Daten sind synthetisch.`,
   "workspace.reset": () => "Demo auf den Ausgangszustand zurückgesetzt.",
   "workspace.industry_changed": (p) => `Branchenvorlage gewechselt zu ${s(p.industryLabel)}.`,
   "email.received": (p) => `E-Mail eingegangen von ${s(p.from)}: „${s(p.subject)}“${Number(p.attachments) ? ` (${p.attachments} Anhang)` : ""}.`,
-  "email.processed": (p) => `E-Mail verarbeitet: ${s(p.documents)} Dokument(e) in ${s(p.durationMs)} ms.`,
+  "email.processed": (p) => `E-Mail verarbeitet: ${Number(p.documents) === 1 ? "1 Dokument" : `${s(p.documents)} Dokumente`} in ${s(p.durationMs)} ms.`,
   "email.failed": (p) => `Verarbeitung fehlgeschlagen: ${s(p.error)}`,
   "document.text_extracted": (p) =>
     p.hasText
-      ? `Text gelesen (${p.source === "pdf" ? "PDF-Textebene" : "E-Mail-Text"}): ${s(p.lines)} Zeilen, ${s(p.pages)} Seite(n).`
+      ? `Text gelesen (${p.source === "pdf" ? "PDF-Textebene" : "E-Mail-Text"}): ${s(p.lines)} Zeilen, ${Number(p.pages) === 1 ? "1 Seite" : `${s(p.pages)} Seiten`}.`
       : "Keine Textebene gefunden – das Dokument ist ein reiner Scan.",
   "document.classified": (p, d, f) => `Als ${dt(d, p.docType)} erkannt (Sicherheit ${f.percent(Number(p.confidence))}) durch ${s(p.providerLabel ?? p.provider)}.`,
   "document.extracted": (p) =>
     `${s(p.fieldsFound)} Felder und ${s(p.lineItems)} Positionen extrahiert.${Array.isArray(p.missingLabels) && p.missingLabels.length ? ` Nicht gefunden: ${list(p.missingLabels)}.` : ""}`,
   "document.matched": (p) => (p.matched ? `Stammdaten-Treffer: ${s(p.name)} (${s(p.matched)}).` : "Kein Treffer in den Stammdaten."),
   "document.validated": (p) =>
-    Array.isArray(p.titles) && p.titles.length ? `${p.titles.length} Prüfhinweis(e): ${list(p.titles)}.` : "Alle Prüfungen ohne Befund.",
+    Array.isArray(p.titles) && p.titles.length ? `${p.titles.length === 1 ? "1 Prüfhinweis" : `${p.titles.length} Prüfhinweise`}: ${list(p.titles)}.` : "Alle Prüfungen ohne Befund.",
   "rules.evaluated": (p) =>
     Array.isArray(p.matchedNames) && p.matchedNames.length ? `Regeln ausgewertet – zutreffend: ${list(p.matchedNames)}.` : `Regeln ausgewertet (${s(p.evaluated)}) – keine trifft zu.`,
   "document.routed": (p, d) => {
@@ -46,7 +75,7 @@ const de: Record<string, R> = {
   "lineitem.corrected": (p) => `Position ${s(p.pos)}, ${s(p.label)} korrigiert: ${s(p.from)} → ${s(p.to)}.`,
   "field.confirmed": (p) => `Feld „${s(p.label)}“ geprüft und bestätigt: ${s(p.value)}.`,
   "issue.reopened": (p) => `Abweichung wieder geöffnet: „${s(p.title)}“.`,
-  "document.revalidated": (p) => `Nach Korrektur neu geprüft: ${s(p.open)} offene Abweichung(en).`,
+  "document.revalidated": (p) => `Nach Korrektur neu geprüft: ${Number(p.open) === 0 ? "keine offenen Abweichungen" : Number(p.open) === 1 ? "1 offene Abweichung" : `${s(p.open)} offene Abweichungen`}.`,
   "issue.accepted": (p) => `Abweichung akzeptiert: „${s(p.title)}“. Begründung: ${s(p.note)}`,
   "issue.resolved": (p) => `Abweichung als behoben markiert: „${s(p.title)}“.`,
   "document.approved": (p) => `Freigegeben${p.note ? `: ${s(p.note)}` : "."}${p.reviewSeconds ? ` Bearbeitungszeit ${Math.round(Number(p.reviewSeconds) / 6) / 10} Min.` : ""}`,
@@ -54,7 +83,7 @@ const de: Record<string, R> = {
   "document.info_requested": (p) => `Rückfrage vorbereitet an ${s(p.to)} (Entwurf – im Demo-Modus nicht versendet).`,
   "document.handed_over": (p) => `Übergeben an ${s(p.toName)}${p.note ? `: ${s(p.note)}` : "."}`,
   "document.approval_denied": (p) => `Freigabe verweigert: ${s(p.reason)}`,
-  "workflow.updated": (p) => `Workflow „${s(p.name)}“ geändert (Version ${s(p.version)}): ${list(p.changes)}.`,
+  "workflow.updated": (p, d, f) => `Workflow „${s(p.name)}“ geändert (Version ${s(p.version)}): ${changeList(p.changes, d, f, "de")}.`,
   "workflow.toggled": (p) => `Workflow „${s(p.name)}“ ${p.active ? "aktiviert" : "deaktiviert"}.`,
   "rule.created": (p) => `Regel angelegt: „${s(p.name)}“.`,
   "rule.updated": (p) => `Regel geändert: „${s(p.name)}“.`,
@@ -109,7 +138,7 @@ const en: Record<string, R> = {
   "document.info_requested": (p) => `Query prepared for ${s(p.to)} (draft – not sent in demo mode).`,
   "document.handed_over": (p) => `Handed over to ${s(p.toName)}${p.note ? `: ${s(p.note)}` : "."}`,
   "document.approval_denied": (p) => `Approval denied: ${s(p.reason)}`,
-  "workflow.updated": (p) => `Workflow "${s(p.name)}" changed (version ${s(p.version)}): ${list(p.changes)}.`,
+  "workflow.updated": (p, d, f) => `Workflow "${s(p.name)}" changed (version ${s(p.version)}): ${changeList(p.changes, d, f, "en")}.`,
   "workflow.toggled": (p) => `Workflow "${s(p.name)}" ${p.active ? "activated" : "deactivated"}.`,
   "rule.created": (p) => `Rule created: "${s(p.name)}".`,
   "rule.updated": (p) => `Rule changed: "${s(p.name)}".`,

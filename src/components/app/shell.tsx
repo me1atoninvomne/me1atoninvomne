@@ -170,7 +170,7 @@ function SidebarContent({ counts }: ShellProps) {
       <div className="border-t border-slate-100 p-3 text-xs text-slate-500">
         <p className="flex items-center gap-1.5">
           <Sparkles className="size-3.5 text-violet-500" />
-          <span>Demo-Adapter aktiv</span>
+          <span>{t.adapterActive}</span>
         </p>
         <Link href="/" className="mt-1 inline-flex items-center gap-1 text-slate-500 hover:text-slate-800">
           <LogOut className="size-3.5" /> {t.leaveDemo}
@@ -373,8 +373,10 @@ function TourPanel({ workspaceId, tour }: { workspaceId: string; tour: ShellProp
   useEffect(() => {
     try {
       const raw = localStorage.getItem(key);
-      if (raw) setState(JSON.parse(raw));
-      else if (window.innerWidth < 768) setState((s) => ({ ...s, open: false }));
+      const stored = raw ? (JSON.parse(raw) as { open: boolean; visited: string[] }) : null;
+      // On small screens the guide always starts collapsed so it never covers the content.
+      const small = window.innerWidth < 768;
+      setState({ open: small ? false : stored?.open ?? true, visited: stored?.visited ?? [] });
     } catch {
       /* storage unavailable – keep defaults */
     }
