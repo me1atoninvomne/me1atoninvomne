@@ -158,7 +158,8 @@ export interface RouteReason {
     | "RULE_CONTINUE"
     | "NO_CONTINUE_RULE"
     | "NOT_BUSINESS_DOCUMENT"
-    | "ALL_CHECKS_PASSED";
+    | "ALL_CHECKS_PASSED"
+    | "HUMAN_CORRECTED";
   params?: Record<string, string | number | null>;
 }
 
