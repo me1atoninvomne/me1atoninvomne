@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
   output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
   serverExternalPackages: ["@libsql/client", "libsql"],
   poweredByHeader: false,
+  devIndicators: false,
   turbopack: {
     rules: {
       "*.css": {
