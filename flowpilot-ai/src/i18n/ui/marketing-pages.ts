@@ -1,6 +1,6 @@
 import { defineDict } from "../core";
 
-/** Pricing, ROI, demo, contact and legal pages. */
+/** Pricing, ROI, demo and contact pages. */
 export const marketingPagesDict = defineDict({
   de: {
     pricing: {
@@ -16,7 +16,33 @@ export const marketingPagesDict = defineDict({
       setup: "Einrichtung",
       included: "Enthalten",
       limits: "Grenzen",
-      recommended: "Empfohlen für die meisten Teams",
+      costs: {
+        title: "Alle Kosten auf einen Blick – keine versteckten Gebühren",
+        text: "Diese Übersicht enthält jede Kostenposition, die anfallen kann. Kosten, die hier nicht aufgeführt sind, entstehen nur nach einem schriftlichen Angebot und Ihrer ausdrücklichen Zustimmung.",
+        caption: "Kostenpositionen je Paket (alle Preise zzgl. MwSt.)",
+        item: "Kostenposition",
+        rows: [
+          { label: "Einrichtung (einmalig)", values: ["ab 3.000 €", "6.000–9.000 €", "ab 10.000 €"] },
+          { label: "Plattformgebühr (monatlich)", values: ["590 €", "1.290 €", "ab 1.990 €"] },
+          { label: "Enthaltene Dokumente pro Monat", values: ["bis 500", "bis 2.500", "nach Vereinbarung"] },
+          { label: "Zusätzliche Dokumente", values: ["0,35 € je Dokument", "0,25 € je Dokument", "nach Vereinbarung"] },
+          { label: "Enthaltene Nutzerinnen und Nutzer", values: ["bis 5", "bis 20", "nach Vereinbarung"] },
+          { label: "Enthaltene Prozesse", values: ["1", "bis 3", "nach Vereinbarung"] },
+          { label: "ERP-Anbindung", values: ["nicht enthalten (Export/Import)", "1 Anbindung enthalten", "mehrere, Preis nach Aufwand"] },
+          { label: "Weitere Nutzer, Prozesse oder Anbindungen", values: ["nur nach schriftlichem Angebot", "nur nach schriftlichem Angebot", "nur nach schriftlichem Angebot"] },
+          { label: "KI- und Infrastrukturkosten", values: ["keine gesonderte Abrechnung", "keine gesonderte Abrechnung", "keine gesonderte Abrechnung"] },
+          { label: "Support", values: ["E-Mail (Werktage)", "E-Mail (Werktage)", "fester Ansprechpartner, vereinbarte Reaktionszeiten"] },
+        ],
+        general: [
+          { label: "Pilotpaket (optional)", value: "3.000–15.000 € einmalig – endet ohne Folgekosten, keine automatische Verlängerung in ein Abonnement" },
+          { label: "Demo", value: "kostenlos, ohne Anmeldung und ohne Zahlungsdaten" },
+          { label: "Monatlich kündbare Variante", value: "Aufpreis, den wir vor Vertragsschluss im Angebot beziffern" },
+          { label: "Datenexport bei Vertragsende", value: "kostenlos" },
+          { label: "Mehrwertsteuer", value: "alle Preise zzgl. der gesetzlichen MwSt." },
+        ],
+        refund: "Kündigung und Erstattung",
+        refundText: "Wie Sie kündigen und was mit bereits gezahlten Beträgen geschieht, beschreiben wir unter",
+      },
       choose: "Beratung anfragen",
       tryDemo: "Demo starten",
       tiers: [
@@ -89,7 +115,7 @@ export const marketingPagesDict = defineDict({
       faq: [
         { q: "Was zählt als Dokument?", a: "Jeder verarbeitete Anhang bzw. jede E-Mail ohne Anhang, die als Geschäftsdokument erkannt wird. Newsletter und Werbung zählen nicht." },
         { q: "Was passiert, wenn wir das Volumen überschreiten?", a: "Die Verarbeitung läuft weiter; Mehrdokumente werden zum angegebenen Preis abgerechnet. Bei dauerhafter Überschreitung schlagen wir das passende Paket vor." },
-        { q: "Gibt es eine Mindestlaufzeit?", a: "Nach der Pilotphase schlagen wir eine Laufzeit von 12 Monaten vor, monatlich kündbare Varianten sind gegen Aufpreis möglich." },
+        { q: "Gibt es eine Mindestlaufzeit?", a: "Nach der Pilotphase schlagen wir eine Laufzeit von 12 Monaten vor. Monatlich kündbare Varianten sind gegen einen Aufpreis möglich, den wir vor Vertragsschluss im Angebot beziffern." },
         { q: "Sind diese Preise final?", a: "Es sind Einführungskonditionen. Wir legen den Preis vor Vertragsbeginn verbindlich fest." },
       ],
     },
@@ -104,7 +130,7 @@ export const marketingPagesDict = defineDict({
     demo: {
       metaTitle: "Demo starten",
       eyebrow: "Interaktive Demo",
-      title: "In 2 Minuten vom Posteingang zum Ergebnis",
+      title: "In wenigen Minuten vom Posteingang zum Ergebnis",
       text: "Sie erhalten einen eigenen, isolierten Demo-Arbeitsbereich mit synthetischen E-Mails, PDF-Bestellungen, Rechnungen und typischen Fehlern. Keine Anmeldung, kein API-Schlüssel, keine echten Daten.",
       steps: [
         "Posteingang verarbeiten lassen",
@@ -144,48 +170,15 @@ export const marketingPagesDict = defineDict({
       choose: "Bitte wählen",
       message: "Nachricht (optional)",
       messagePlaceholder: "z. B. ca. 1.200 Bestellungen pro Monat per E-Mail, Erfassung in SAP Business One",
-      consent: "Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden.",
       submit: "Anfrage senden",
       sending: "Wird gesendet …",
       required: "Pflichtfeld",
       invalidEmail: "Bitte eine gültige E-Mail-Adresse angeben.",
-      consentRequired: "Bitte stimmen Sie der Speicherung zu.",
       error: "Die Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
       successTitle: "Vielen Dank – Ihre Anfrage ist gespeichert.",
       successText:
         "Hinweis: Dies ist eine Demo-Installation. Ihre Anfrage wurde in der Datenbank dieser Installation abgelegt, es wird keine E-Mail versendet und niemand wird automatisch benachrichtigt.",
       again: "Weitere Anfrage",
-    },
-    legal: {
-      placeholder: "Platzhalter – vor Veröffentlichung durch die Angaben des Betreibers ersetzen.",
-      imprintTitle: "Impressum",
-      imprintMeta: "Impressum",
-      imprintItems: [
-        ["Anbieter", "[Firmenname, Rechtsform]"],
-        ["Anschrift", "[Straße Hausnummer, PLZ Ort]"],
-        ["Vertreten durch", "[Geschäftsführung]"],
-        ["Kontakt", "[Telefon, E-Mail]"],
-        ["Registereintrag", "[Registergericht, Registernummer]"],
-        ["Umsatzsteuer-ID", "[USt-IdNr. gemäß § 27a UStG]"],
-        ["Verantwortlich für den Inhalt", "[Name, Anschrift]"],
-      ],
-      privacyTitle: "Datenschutz",
-      privacyMeta: "Datenschutz",
-      privacyIntro: "Die folgende Beschreibung gibt wieder, wie diese Demo-Installation technisch arbeitet. Sie ersetzt keine rechtlich geprüfte Datenschutzerklärung.",
-      privacySections: [
-        {
-          title: "Cookies",
-          text: "Es werden ausschließlich funktionale Cookies gesetzt: fp_ws (Kennung Ihres Demo-Arbeitsbereichs), fp_user (gewählter Demo-Benutzer) und fp_lang (Sprache). Es gibt keine Analyse-, Werbe- oder Tracking-Cookies.",
-        },
-        { title: "Demo-Daten", text: "Der Demo-Arbeitsbereich enthält nur synthetische Daten. Arbeitsbereiche werden nach einer Phase der Inaktivität automatisch gelöscht." },
-        {
-          title: "Hochgeladene Dateien",
-          text: "Dateien, die Sie in der Demo hochladen, werden in Ihrem Arbeitsbereich gespeichert und mit ihm gelöscht. Bitte laden Sie keine echten personenbezogenen oder vertraulichen Dokumente hoch.",
-        },
-        { title: "Kontaktanfragen", text: "Angaben aus dem Kontaktformular werden in der Datenbank dieser Installation gespeichert. Eine E-Mail wird nicht versendet." },
-        { title: "Schriftarten und Drittanbieter", text: "Schriftarten werden lokal ausgeliefert. Es werden keine Inhalte von Drittanbietern nachgeladen. Im Demo-Modus findet keine Übertragung an KI-Dienste statt." },
-        { title: "Verantwortliche Stelle", text: "[Name und Kontaktdaten des Verantwortlichen sowie ggf. des Datenschutzbeauftragten]" },
-      ],
     },
   },
   en: {
@@ -202,7 +195,33 @@ export const marketingPagesDict = defineDict({
       setup: "Setup",
       included: "Included",
       limits: "Limits",
-      recommended: "Recommended for most teams",
+      costs: {
+        title: "All costs at a glance – no hidden fees",
+        text: "This overview contains every cost item that can arise. Costs not listed here only arise after a written offer and your explicit consent.",
+        caption: "Cost items per package (all prices excl. VAT)",
+        item: "Cost item",
+        rows: [
+          { label: "Setup (one-off)", values: ["from €3,000", "€6,000–9,000", "from €10,000"] },
+          { label: "Platform fee (monthly)", values: ["€590", "€1,290", "from €1,990"] },
+          { label: "Included documents per month", values: ["up to 500", "up to 2,500", "by agreement"] },
+          { label: "Additional documents", values: ["€0.35 per document", "€0.25 per document", "by agreement"] },
+          { label: "Included users", values: ["up to 5", "up to 20", "by agreement"] },
+          { label: "Included processes", values: ["1", "up to 3", "by agreement"] },
+          { label: "ERP connection", values: ["not included (export/import)", "1 connection included", "several, priced by effort"] },
+          { label: "Additional users, processes or connections", values: ["only after a written offer", "only after a written offer", "only after a written offer"] },
+          { label: "AI and infrastructure costs", values: ["not billed separately", "not billed separately", "not billed separately"] },
+          { label: "Support", values: ["e-mail (business days)", "e-mail (business days)", "dedicated contact, agreed response times"] },
+        ],
+        general: [
+          { label: "Pilot package (optional)", value: "€3,000–15,000 one-off – ends without follow-up costs, no automatic conversion into a subscription" },
+          { label: "Demo", value: "free of charge, no sign-up and no payment details" },
+          { label: "Monthly cancellable option", value: "surcharge stated in the offer before the contract is concluded" },
+          { label: "Data export at the end of the contract", value: "free of charge" },
+          { label: "VAT", value: "all prices excl. statutory VAT" },
+        ],
+        refund: "Cancellation and refunds",
+        refundText: "How to cancel and what happens to amounts already paid is described under",
+      },
       choose: "Request consultation",
       tryDemo: "Start demo",
       tiers: [
@@ -275,7 +294,7 @@ export const marketingPagesDict = defineDict({
       faq: [
         { q: "What counts as a document?", a: "Every processed attachment or e-mail without attachment that is recognised as a business document. Newsletters and advertising do not count." },
         { q: "What if we exceed the volume?", a: "Processing continues; additional documents are billed at the stated price. If the volume is exceeded permanently, we suggest the right package." },
-        { q: "Is there a minimum term?", a: "After the pilot we suggest 12 months; monthly cancellable options are available at a surcharge." },
+        { q: "Is there a minimum term?", a: "After the pilot we suggest 12 months. Monthly cancellable options are available at a surcharge that we state in the offer before the contract is concluded." },
         { q: "Are these prices final?", a: "They are introductory terms. We fix the price bindingly before the contract starts." },
       ],
     },
@@ -290,7 +309,7 @@ export const marketingPagesDict = defineDict({
     demo: {
       metaTitle: "Start demo",
       eyebrow: "Interactive demo",
-      title: "From inbox to result in 2 minutes",
+      title: "From inbox to result in a few minutes",
       text: "You get your own isolated demo workspace with synthetic e-mails, PDF orders, invoices and typical errors. No sign-up, no API key, no real data.",
       steps: ["Let the inbox be processed", "Review and decide on an order with a price deviation", "Approve – the order lands as a draft in the demo ERP", "Look at the exception radar and ROI analysis"],
       choose: "Choose an industry template",
@@ -325,44 +344,14 @@ export const marketingPagesDict = defineDict({
       choose: "Please choose",
       message: "Message (optional)",
       messagePlaceholder: "e.g. approx. 1,200 orders per month by e-mail, entered in SAP Business One",
-      consent: "I agree that my details are stored to process the request.",
       submit: "Send request",
       sending: "Sending …",
       required: "Required",
       invalidEmail: "Please enter a valid e-mail address.",
-      consentRequired: "Please agree to the storage.",
       error: "The request could not be stored. Please try again.",
       successTitle: "Thank you – your request has been stored.",
       successText: "Note: this is a demo installation. Your request was stored in this installation's database; no e-mail is sent and nobody is notified automatically.",
       again: "Another request",
-    },
-    legal: {
-      placeholder: "Placeholder – replace with the operator's details before publication.",
-      imprintTitle: "Imprint",
-      imprintMeta: "Imprint",
-      imprintItems: [
-        ["Provider", "[Company name, legal form]"],
-        ["Address", "[Street, postcode, city]"],
-        ["Represented by", "[Management]"],
-        ["Contact", "[Phone, e-mail]"],
-        ["Register entry", "[Register court, register number]"],
-        ["VAT ID", "[VAT ID according to § 27a UStG]"],
-        ["Responsible for content", "[Name, address]"],
-      ],
-      privacyTitle: "Privacy",
-      privacyMeta: "Privacy",
-      privacyIntro: "The following describes how this demo installation works technically. It does not replace a legally reviewed privacy policy.",
-      privacySections: [
-        {
-          title: "Cookies",
-          text: "Only functional cookies are set: fp_ws (identifier of your demo workspace), fp_user (selected demo user) and fp_lang (language). There are no analytics, advertising or tracking cookies.",
-        },
-        { title: "Demo data", text: "The demo workspace contains synthetic data only. Workspaces are deleted automatically after a period of inactivity." },
-        { title: "Uploaded files", text: "Files you upload in the demo are stored in your workspace and deleted with it. Please do not upload real personal or confidential documents." },
-        { title: "Contact requests", text: "Details from the contact form are stored in this installation's database. No e-mail is sent." },
-        { title: "Fonts and third parties", text: "Fonts are served locally. No third-party content is loaded. In demo mode nothing is sent to AI services." },
-        { title: "Controller", text: "[Name and contact details of the controller and, if applicable, the data protection officer]" },
-      ],
     },
   },
 });

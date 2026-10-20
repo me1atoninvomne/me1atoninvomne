@@ -165,7 +165,7 @@ export default async function LandingPage() {
                 <ol className="mt-3 flex-1 space-y-1.5">
                   {tpl.process.map((p, i) => (
                     <li key={p.de} className="flex gap-2 text-[13px] leading-snug text-slate-600">
-                      <span className="tabular mt-px w-4 shrink-0 text-xs font-semibold text-slate-400">{i + 1}.</span>
+                      <span className="tabular mt-px w-4 shrink-0 text-xs font-semibold text-slate-500">{i + 1}.</span>
                       {p[lang]}
                     </li>
                   ))}
@@ -243,6 +243,7 @@ export default async function LandingPage() {
             </div>
           </div>
         </div>
+        <p className="mt-6 max-w-3xl text-sm leading-relaxed text-slate-600">{t.pilot.references}</p>
       </Section>
 
       {/* FAQ */}

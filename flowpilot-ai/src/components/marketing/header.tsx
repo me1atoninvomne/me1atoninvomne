@@ -3,7 +3,7 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useLang, useT } from "@/i18n/client";
 import { marketingDict } from "@/i18n/ui/marketing";
 import { cn } from "@/lib/cn";
@@ -17,8 +17,23 @@ export function MarketingHeader({ hasDemo }: { hasDemo: boolean }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [, startTransition] = useTransition();
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setOpen(false), [pathname]);
+
+  // Mobile menu: move focus into the menu when it opens, close with Escape and return focus.
+  useEffect(() => {
+    if (!open) return;
+    drawerRef.current?.querySelector<HTMLElement>("a, button")?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   const links = [
     { href: "/#funktionen", label: t.nav.features },
@@ -43,7 +58,7 @@ export function MarketingHeader({ hasDemo }: { hasDemo: boolean }) {
           type="button"
           onClick={() => setLang(l)}
           aria-pressed={lang === l}
-          className={cn("rounded-md px-2 py-1", lang === l ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-800")}
+          className={cn("rounded-md px-2 py-1", lang === l ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-900")}
         >
           {l.toUpperCase()}
         </button>
@@ -54,14 +69,15 @@ export function MarketingHeader({ hasDemo }: { hasDemo: boolean }) {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
-        <Link href="/" aria-label="FlowPilot AI – Startseite" className="shrink-0">
+        <Link href="/" aria-label={t.nav.home} className="shrink-0">
           <Logo />
         </Link>
-        <nav className="hidden flex-1 items-center justify-center gap-1 lg:flex" aria-label="Hauptnavigation">
+        <nav className="hidden flex-1 items-center justify-center gap-1 lg:flex" aria-label={t.nav.main}>
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
+              aria-current={pathname === l.href ? "page" : undefined}
               className={cn(
                 "rounded-md px-2.5 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900",
                 pathname === l.href && "text-slate-900",
@@ -82,6 +98,7 @@ export function MarketingHeader({ hasDemo }: { hasDemo: boolean }) {
             {t.cta.demo}
           </ButtonLink>
           <button
+            ref={toggleRef}
             type="button"
             className="rounded-md p-2 text-slate-600 hover:bg-slate-100 lg:hidden"
             onClick={() => setOpen((v) => !v)}
@@ -94,8 +111,8 @@ export function MarketingHeader({ hasDemo }: { hasDemo: boolean }) {
         </div>
       </div>
       {open && (
-        <div id="mobile-nav" className="fade-in border-t border-slate-100 bg-white px-4 pt-2 pb-4 lg:hidden">
-          <nav className="flex flex-col" aria-label="Mobile Navigation">
+        <div id="mobile-nav" ref={drawerRef} className="fade-in border-t border-slate-100 bg-white px-4 pt-2 pb-4 lg:hidden">
+          <nav className="flex flex-col" aria-label={t.nav.mobile}>
             {links.map((l) => (
               <Link key={l.href} href={l.href} className="rounded-md px-2 py-2.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50" onClick={() => setOpen(false)}>
                 {l.label}

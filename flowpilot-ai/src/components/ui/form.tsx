@@ -5,7 +5,7 @@ import { forwardRef, useId } from "react";
 import { cn } from "@/lib/cn";
 
 const control =
-  "block w-full rounded-lg border-0 bg-white px-3 text-sm text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 focus:outline-none disabled:bg-slate-50 disabled:text-slate-500";
+  "block w-full rounded-lg border-0 bg-white px-3 text-sm text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-500 focus:ring-2 focus:ring-inset focus:ring-blue-600 focus:outline-none disabled:bg-slate-50 disabled:text-slate-500";
 
 export const Input = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement> & { invalid?: boolean }>(function Input(
   { className, invalid, ...rest },
@@ -30,7 +30,7 @@ export function Label({ htmlFor, children, className, hint }: { htmlFor?: string
   return (
     <label htmlFor={htmlFor} className={cn("mb-1.5 block text-[13px] font-medium text-slate-700", className)}>
       {children}
-      {hint && <span className="ml-1 font-normal text-slate-400">{hint}</span>}
+      {hint && <span className="ml-1 font-normal text-slate-500">{hint}</span>}
     </label>
   );
 }

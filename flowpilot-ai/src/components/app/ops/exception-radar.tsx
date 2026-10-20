@@ -309,7 +309,7 @@ function RecurringList({ items }: { items: ExceptionItem[] }) {
           );
         })}
       </ul>
-      <p className="border-t border-slate-100 px-4 py-2 text-xs text-slate-400 sm:px-5">{t.syntheticLabel}</p>
+      <p className="border-t border-slate-100 px-4 py-2 text-xs text-slate-500 sm:px-5">{t.syntheticLabel}</p>
     </Card>
   );
 }

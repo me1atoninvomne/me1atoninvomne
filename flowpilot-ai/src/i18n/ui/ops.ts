@@ -3,7 +3,7 @@ import { defineDict } from "../core";
 export const exceptionsDict = defineDict({
   de: {
     title: "Exception Radar",
-    description: "Nur was wirklich Aufmerksamkeit braucht – mit möglichen Folgen und einer klaren Empfehlung. Alles andere läuft automatisch oder im normalen Prüfprozess.",
+    description: "Was nach Ihren Regeln Aufmerksamkeit braucht – mit möglichen Folgen und einer Empfehlung. Alles andere läuft automatisch oder im normalen Prüfprozess.",
     toInbox: "Zum Posteingang",
     toReview: "Zur Prüfung",
     summary: {
@@ -82,7 +82,7 @@ export const exceptionsDict = defineDict({
   },
   en: {
     title: "Exception radar",
-    description: "Only what really needs attention – with possible consequences and a clear recommendation. Everything else runs automatically or in the normal review process.",
+    description: "What needs attention according to your rules – with possible consequences and a recommendation. Everything else runs automatically or in the normal review process.",
     toInbox: "Go to inbox",
     toReview: "Go to review",
     summary: {
@@ -225,7 +225,7 @@ export const tasksDict = defineDict({
 export const auditDictUi = defineDict({
   de: {
     title: "Aktivitätsprotokoll",
-    description: "Lückenlose Historie aller Aktionen von KI, Mitarbeitenden, System und Integrationen.",
+    description: "Protokoll der Aktionen von KI, Mitarbeitenden, System und Integrationen – Einträge werden nur angehängt.",
     calloutTitle: "Unveränderliches Protokoll",
     calloutText:
       "Protokolliert werden eingegangene E-Mails, erkannte Dokumente, extrahierte Felder, ausgeführte Prüfungen, ausgewertete Regeln, Begründungen für die Weitergabe an Mitarbeitende, Freigaben und an Zielsysteme übergebene Daten. Einträge werden nur angehängt – es gibt keine Funktion zum Ändern oder Löschen.",
@@ -244,7 +244,7 @@ export const auditDictUi = defineDict({
   },
   en: {
     title: "Activity log",
-    description: "Complete history of all actions by AI, staff, system and integrations.",
+    description: "Log of actions by AI, staff, system and integrations – entries are only ever appended.",
     calloutTitle: "Immutable log",
     calloutText:
       "The log records received e-mails, recognised documents, extracted fields, performed checks, evaluated rules, reasons for handing over to staff, approvals and data transferred to target systems. Entries are append-only – there is no function to change or delete them.",

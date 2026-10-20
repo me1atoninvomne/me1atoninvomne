@@ -84,7 +84,7 @@ export function Stat({
     <Card className={cn("px-4 py-3.5", className)} as="div">
       <div className="flex items-center justify-between gap-2">
         <p className="text-[13px] font-medium text-slate-500">{label}</p>
-        {icon && <span className="text-slate-400">{icon}</span>}
+        {icon && <span className="text-slate-500">{icon}</span>}
       </div>
       <p className={cn("mt-1.5 text-2xl font-semibold tracking-tight", accent)}>{value}</p>
       {hint && <p className="mt-1 text-xs leading-snug text-slate-500">{hint}</p>}

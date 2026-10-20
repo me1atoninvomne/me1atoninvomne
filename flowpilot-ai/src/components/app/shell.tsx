@@ -8,6 +8,7 @@ import {
   Check,
   ChevronDown,
   ClipboardCheck,
+  Cookie,
   FlaskConical,
   Inbox,
   LayoutDashboard,
@@ -19,22 +20,27 @@ import {
   RotateCcw,
   Settings,
   Sparkles,
+  Trash2,
   Workflow,
   X,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { INDUSTRY_KEYS, INDUSTRY_TEMPLATES, type IndustryKey } from "@/domain/templates";
 import type { LocalizedText } from "@/domain/types";
 import { notificationText } from "@/i18n/audit";
 import { useDomain, useFormat, useLang, useT } from "@/i18n/client";
 import { commonDict } from "@/i18n/ui/common";
+import { legalDict } from "@/i18n/ui/legal";
 import { shellDict } from "@/i18n/ui/shell";
-import { useMutation } from "@/lib/api-client";
+import { apiFetch, useMutation } from "@/lib/api-client";
 import { cn } from "@/lib/cn";
+import { comfortStorage } from "@/lib/comfort-storage";
+import { useConsent } from "../consent/consent-provider";
 import { Button } from "../ui/button";
 import { Select } from "../ui/form";
+import { SkipLink } from "../ui/skip-link";
 import { Dialog, Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from "../ui/overlay";
 import { Avatar } from "./badges";
 import { Logo } from "./logo";
@@ -58,23 +64,39 @@ interface ShellProps {
 }
 
 export function AppShell(props: ShellProps) {
+  const c = useT(commonDict);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const menuButton = useRef<HTMLElement | null>(null);
   useEffect(() => setMobileOpen(false), [pathname]);
+  // Mobile drawer: focus moves into it, Escape closes it, focus returns to the menu button.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    menuButton.current = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMobileOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      menuButton.current?.focus();
+    };
+  }, [mobileOpen]);
 
   return (
     <div className="min-h-dvh">
+      <SkipLink />
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r border-slate-200 bg-white lg:flex">
         <SidebarContent {...props} />
       </aside>
       {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal>
-          <div className="absolute inset-0 bg-slate-900/40" onClick={() => setMobileOpen(false)} />
+        <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal aria-label={c.menu}>
+          <div className="absolute inset-0 bg-slate-900/40" onClick={() => setMobileOpen(false)} aria-hidden />
           <aside className="fade-in absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-white shadow-xl">
-            <button className="absolute top-3 right-3 rounded-md p-1.5 text-slate-500 hover:bg-slate-100" onClick={() => setMobileOpen(false)} aria-label="Menü schließen">
-              <X className="size-5" />
+            <button ref={closeRef} className="absolute top-3 right-3 rounded-md p-1.5 text-slate-500 hover:bg-slate-100" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}>
+              <X className="size-5" aria-hidden />
             </button>
             <SidebarContent {...props} />
           </aside>
@@ -83,7 +105,9 @@ export function AppShell(props: ShellProps) {
       <div className="lg:pl-60">
         <Topbar {...props} onMenu={() => setMobileOpen(true)} />
         {props.workspace.isDemo && <DemoBanner industry={props.workspace.industry as IndustryKey} />}
-        <main className="mx-auto w-full max-w-[1400px] px-4 py-5 sm:px-6 lg:px-8 lg:py-7">{props.children}</main>
+        <main id="main" tabIndex={-1} className="mx-auto w-full max-w-[1400px] px-4 py-5 outline-none sm:px-6 lg:px-8 lg:py-7">
+          {props.children}
+        </main>
       </div>
       {props.workspace.isDemo && <TourPanel workspaceId={props.workspace.id} tour={props.tour} />}
     </div>
@@ -132,7 +156,7 @@ function SidebarContent({ counts }: ShellProps) {
       <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Hauptnavigation">
         {groups.map((g) => (
           <div key={g.label} className="mb-5">
-            <p className="mb-1.5 px-2 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">{g.label}</p>
+            <p className="mb-1.5 px-2 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">{g.label}</p>
             <ul className="space-y-0.5">
               {g.items.map((item) => {
                 const active = isActive(item.href);
@@ -187,7 +211,10 @@ function Topbar({ workspace, user, users, notifications, onMenu }: ShellProps & 
   const f = useFormat();
   const router = useRouter();
   const { run, pending } = useMutation();
-  const [dialog, setDialog] = useState<null | "reset" | "industry">(null);
+  const l = useT(legalDict);
+  const { openSettings } = useConsent();
+  const [dialog, setDialog] = useState<null | "reset" | "industry" | "delete">(null);
+  const [deleting, setDeleting] = useState(false);
   const [industry, setIndustry] = useState<IndustryKey>(workspace.industry as IndustryKey);
 
   const setLang = async (l: "de" | "en") => {
@@ -200,6 +227,16 @@ function Topbar({ workspace, user, users, notifications, onMenu }: ShellProps & 
     await run("/api/demo/reset", { body: target ? { industry: target } : {} }, { success: c.resetDemo });
     setDialog(null);
     router.push("/app/inbox?tour=1");
+  };
+  const deleteDemo = async () => {
+    setDeleting(true);
+    try {
+      await apiFetch("/api/demo/delete", { body: {} });
+      // Full navigation so no client state of the deleted workspace survives.
+      window.location.assign("/demo?deleted=1");
+    } catch {
+      setDeleting(false);
+    }
   };
   const markRead = () => run("/api/notifications/read", { body: {} }, { silent: true });
 
@@ -214,7 +251,9 @@ function Topbar({ workspace, user, users, notifications, onMenu }: ShellProps & 
         {workspace.isDemo && (
           <span className="hidden shrink-0 rounded-md bg-amber-100 px-1.5 py-0.5 text-[11px] font-semibold text-amber-800 sm:inline">{c.demoBadge}</span>
         )}
-        <span className="hidden shrink-0 text-sm text-slate-400 md:inline">·</span>
+        <span className="hidden shrink-0 text-sm text-slate-400 md:inline" aria-hidden>
+          ·
+        </span>
         <button onClick={() => setDialog("industry")} className="hidden shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-sm text-slate-500 hover:bg-slate-100 hover:text-slate-800 md:inline-flex">
           {INDUSTRY_TEMPLATES[workspace.industry as IndustryKey]?.name[lang]}
           <ChevronDown className="size-3.5" />
@@ -231,7 +270,9 @@ function Topbar({ workspace, user, users, notifications, onMenu }: ShellProps & 
 
       <Menu onOpenChange={(open) => !open && notifications.unread > 0 && markRead()}>
         <MenuTrigger asChild>
-          <button className="relative rounded-md p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800" aria-label={c.notifications}>
+          <button className="relative rounded-md p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800">
+            {/* Name = visible content: "Benachrichtigungen" (screen readers only) + the visible count. */}
+            <span className="sr-only">{c.notifications}</span>
             <Bell className="size-[18px]" />
             {notifications.unread > 0 && (
               <span className="tabular absolute top-1 right-1 flex min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] leading-4 font-semibold text-white">
@@ -251,7 +292,7 @@ function Topbar({ workspace, user, users, notifications, onMenu }: ShellProps & 
                 <span className={cn("mt-1.5 size-1.5 shrink-0 rounded-full", n.read ? "bg-transparent" : "bg-blue-600")} />
                 <span className="min-w-0 flex-1">
                   <span className="block text-[13px] leading-snug text-slate-800">{notificationText(n.kind, n.params, lang, f)}</span>
-                  <span className="text-xs text-slate-400">{f.relative(n.at)}</span>
+                  <span className="text-xs text-slate-500">{f.relative(n.at)}</span>
                 </span>
               </MenuItem>
             ))}
@@ -261,12 +302,13 @@ function Topbar({ workspace, user, users, notifications, onMenu }: ShellProps & 
 
       <Menu>
         <MenuTrigger asChild>
-          <button className="flex items-center gap-2 rounded-md py-1 pr-1 pl-1 text-left hover:bg-slate-100 sm:pr-2" aria-label={c.switchUser}>
+          <button className="flex items-center gap-2 rounded-md py-1 pr-1 pl-1 text-left hover:bg-slate-100 sm:pr-2">
             <Avatar name={user.name} />
             <span className="hidden min-w-0 sm:block">
               <span className="block max-w-36 truncate text-[13px] leading-tight font-medium text-slate-800">{user.name}</span>
               <span className="block max-w-36 truncate text-[11px] leading-tight text-slate-500">{d.role[user.role as keyof typeof d.role]}</span>
             </span>
+            <span className="sr-only"> – {c.switchUser}</span>
             <ChevronDown className="hidden size-3.5 text-slate-400 sm:block" />
           </button>
         </MenuTrigger>
@@ -294,8 +336,15 @@ function Topbar({ workspace, user, users, notifications, onMenu }: ShellProps & 
               <MenuItem onSelect={() => setDialog("reset")}>
                 <RotateCcw className="size-4 text-slate-400" /> {c.resetDemo}
               </MenuItem>
+              <MenuItem onSelect={() => setDialog("delete")}>
+                <Trash2 className="size-4 text-slate-400" /> {l.deleteDemo.action}
+              </MenuItem>
             </>
           )}
+          <MenuSeparator />
+          <MenuItem onSelect={openSettings}>
+            <Cookie className="size-4 text-slate-400" /> {l.footer.cookieSettings}
+          </MenuItem>
         </MenuContent>
       </Menu>
 
@@ -310,6 +359,21 @@ function Topbar({ workspace, user, users, notifications, onMenu }: ShellProps & 
             <Button onClick={() => setDialog(null)}>{c.cancel}</Button>
             <Button variant="primary" loading={pending} onClick={() => reset()} icon={<RotateCcw className="size-4" />}>
               {c.reset}
+            </Button>
+          </>
+        }
+      />
+      <Dialog
+        open={dialog === "delete"}
+        onOpenChange={(o) => !o && setDialog(null)}
+        title={l.deleteDemo.title}
+        description={l.deleteDemo.text}
+        size="sm"
+        footer={
+          <>
+            <Button onClick={() => setDialog(null)}>{l.deleteDemo.cancel}</Button>
+            <Button variant="danger" loading={deleting} onClick={deleteDemo} icon={<Trash2 className="size-4" />}>
+              {l.deleteDemo.confirm}
             </Button>
           </>
         }
@@ -372,7 +436,7 @@ function TourPanel({ workspaceId, tour }: { workspaceId: string; tour: ShellProp
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(key);
+      const raw = comfortStorage("local").getItem(key);
       const stored = raw ? (JSON.parse(raw) as { open: boolean; visited: string[] }) : null;
       // On small screens the guide always starts collapsed so it never covers the content.
       const small = window.innerWidth < 768;
@@ -391,7 +455,7 @@ function TourPanel({ workspaceId, tour }: { workspaceId: string; tour: ShellProp
   useEffect(() => {
     if (!ready) return;
     try {
-      localStorage.setItem(key, JSON.stringify(state));
+      comfortStorage("local").setItem(key, JSON.stringify(state));
     } catch {
       /* ignore */
     }

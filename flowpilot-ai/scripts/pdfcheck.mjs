@@ -7,7 +7,7 @@ const page = await (await browser.newContext({ viewport: { width: 1440, height: 
 const logs = [];
 page.on("console", (m) => m.type() !== "log" && m.type() !== "info" && logs.push(m.type() + ": " + m.text()));
 page.on("pageerror", (e) => logs.push("pageerror: " + e.message));
-await page.request.post(base + "/api/demo/start", { data: { industry: "manufacturing" } });
+await page.request.post(base + "/api/demo/start", { data: { industry: "manufacturing", confirmAge: true } });
 await page.goto(base + "/app/inbox");
 await page.getByRole("button", { name: /Posteingang verarbeiten/ }).click();
 await page.getByText("Verarbeitung abgeschlossen").waitFor({ timeout: 45000 });

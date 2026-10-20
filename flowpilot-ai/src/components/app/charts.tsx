@@ -8,9 +8,11 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useFormat, useT } from "@/i18n/client";
+import { commonDict } from "@/i18n/ui/common";
 import { chartDict } from "@/i18n/ui/insights";
 import { cn } from "@/lib/cn";
 import { Segmented } from "../ui/tabs";
+import { ScrollX } from "../ui/scroll-x";
 
 const S1 = "var(--color-series-1)";
 const S2 = "var(--color-series-2)";
@@ -54,9 +56,11 @@ function topRoundedRect(x: number, y: number, w: number, h: number, r = 4): stri
 
 function ViewToggle({ value, onChange }: { value: "chart" | "table"; onChange: (v: "chart" | "table") => void }) {
   const t = useT(chartDict);
+  const c = useT(commonDict);
   return (
     <Segmented
       size="xs"
+      label={c.viewGroup}
       value={value}
       onChange={onChange}
       options={[
@@ -113,6 +117,7 @@ export function WeeklyStackedChart({ data, height = 220 }: { data: WeekDatum[]; 
   const { ref, width } = useWidth<HTMLDivElement>();
   const [view, setView] = useState<"chart" | "table">("chart");
   const [active, setActive] = useState<number | null>(null);
+  const [focused, setFocused] = useState<number | null>(null);
 
   const margin = { top: 12, right: 8, bottom: 26, left: 40 };
   const innerW = Math.max(0, width - margin.left - margin.right);
@@ -128,7 +133,7 @@ export function WeeklyStackedChart({ data, height = 220 }: { data: WeekDatum[]; 
   return (
     <div>
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600" aria-label="Legende">
+        <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600" aria-label={t.legend}>
           <li className="flex items-center gap-1.5">
             <span className="size-2.5 rounded-[3px]" style={{ background: S1 }} />
             {t.automated}
@@ -155,7 +160,7 @@ export function WeeklyStackedChart({ data, height = 220 }: { data: WeekDatum[]; 
       ) : (
         <div ref={ref} className="relative w-full" style={{ height }} onPointerLeave={() => setActive(null)}>
           {width > 0 && (
-            <svg width={width} height={height} role="img" aria-label={`${t.automated} / ${t.reviewed}`} className="overflow-visible">
+            <svg width={width} height={height} role="group" aria-label={`${t.documents}: ${t.automated} / ${t.reviewed} – ${t.keyboardHint}`} className="overflow-visible">
               {ticks.map((tk) => (
                 <g key={tk}>
                   <line x1={margin.left} x2={width - margin.right} y1={y(tk)} y2={y(tk)} stroke={tk === 0 ? AXIS : GRID} strokeWidth={1} shapeRendering="crispEdges" />
@@ -181,12 +186,21 @@ export function WeeklyStackedChart({ data, height = 220 }: { data: WeekDatum[]; 
                     role="img"
                     aria-label={`${d.label}: ${t.automated} ${d.automated}, ${t.reviewed} ${d.reviewed}`}
                     onPointerEnter={() => setActive(i)}
-                    onFocus={() => setActive(i)}
-                    onBlur={() => setActive(null)}
+                    onFocus={() => {
+                      setActive(i);
+                      setFocused(i);
+                    }}
+                    onBlur={() => {
+                      setActive(null);
+                      setFocused(null);
+                    }}
                     className="outline-none"
                   >
                     <rect x={margin.left + band * i} y={margin.top} width={band} height={innerH} fill="transparent" />
                     {lifted && <rect x={margin.left + band * i + 2} y={margin.top} width={band - 4} height={innerH} fill="#f1f3f7" rx={4} />}
+                    {focused === i && (
+                      <rect x={margin.left + band * i + 2} y={margin.top} width={band - 4} height={innerH} fill="none" stroke="#2563eb" strokeWidth={2} rx={4} />
+                    )}
                     {d.reviewed > 0 || d.automated > 0 ? (
                       <>
                         {d.automated > 0 && (
@@ -371,7 +385,7 @@ export function BreakdownBars({ rows }: { rows: BreakdownRow[] }) {
   const max = Math.max(1, ...rows.map((r) => r.total));
   return (
     <div>
-      <ul className="mb-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600" aria-label="Legende">
+      <ul className="mb-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600" aria-label={t.legend}>
         <li className="flex items-center gap-1.5">
           <span className="size-2.5 rounded-[3px]" style={{ background: S1 }} />
           {t.automated}
@@ -409,7 +423,7 @@ export function BreakdownBars({ rows }: { rows: BreakdownRow[] }) {
 
 export function DataTable({ head, rows }: { head: string[]; rows: (string | number)[][] }) {
   return (
-    <div className="overflow-x-auto">
+    <ScrollX>
       <table className="w-full text-[13px]">
         <thead>
           <tr className="border-b border-slate-100 text-left text-xs text-slate-500">
@@ -432,6 +446,6 @@ export function DataTable({ head, rows }: { head: string[]; rows: (string | numb
           ))}
         </tbody>
       </table>
-    </div>
+    </ScrollX>
   );
 }

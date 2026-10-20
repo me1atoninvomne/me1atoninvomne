@@ -14,6 +14,7 @@ import { settingsDict, workflowsDict } from "@/i18n/ui/config";
 import { useMutation } from "@/lib/api-client";
 import { cn } from "@/lib/cn";
 import type { SettingsPageData } from "@/server/services/config-queries";
+import { DeleteDemoData } from "../../consent/delete-demo";
 import { Badge } from "../../ui/badge";
 import { Button, ButtonLink } from "../../ui/button";
 import { Card, CardHeader, PageHeader } from "../../ui/card";
@@ -33,7 +34,19 @@ interface Permissions {
   reset: boolean;
 }
 
-export function SettingsView({ data, currentUserId, initialTab, permissions }: { data: SettingsPageData; currentUserId: string; initialTab: TabKey; permissions: Permissions }) {
+export function SettingsView({
+  data,
+  currentUserId,
+  initialTab,
+  permissions,
+  demoTtlHours,
+}: {
+  data: SettingsPageData;
+  currentUserId: string;
+  initialTab: TabKey;
+  permissions: Permissions;
+  demoTtlHours: number;
+}) {
   const t = useT(settingsDict);
   const tabs: TabKey[] = ["general", "users", "automation", "roi", "privacy", ...(data.workspace.isDemo ? (["demo"] as TabKey[]) : [])];
   return (
@@ -66,10 +79,18 @@ export function SettingsView({ data, currentUserId, initialTab, permissions }: {
         </TabsContent>
         <TabsContent value="privacy">
           <PrivacySection data={data} canEdit={permissions.settings && permissions.retention} />
+          {data.workspace.isDemo && (
+            <div className="mt-4 max-w-3xl">
+              <DeleteDemoData ttlHours={demoTtlHours} />
+            </div>
+          )}
         </TabsContent>
         {data.workspace.isDemo && (
           <TabsContent value="demo">
             <DemoSection data={data} canReset={permissions.reset} />
+            <div className="mt-4 max-w-3xl">
+              <DeleteDemoData ttlHours={demoTtlHours} />
+            </div>
           </TabsContent>
         )}
       </Tabs>

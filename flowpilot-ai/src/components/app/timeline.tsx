@@ -43,7 +43,7 @@ export function AuditTimeline({ events, showDocumentLinks, dense }: { events: Ti
                   ))}
                 </ul>
               )}
-              <p className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-xs text-slate-400">
+              <p className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-xs text-slate-500">
                 <span className="font-medium text-slate-500">{e.actorName}</span>
                 <span>·</span>
                 <span>{ACTOR_LABEL[lang][e.actorType]}</span>

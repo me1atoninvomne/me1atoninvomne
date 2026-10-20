@@ -230,7 +230,9 @@ export const metricWeeks = sqliteTable("metric_weeks", {
   synthetic: integer("synthetic", { mode: "boolean" }).notNull(),
 });
 
-export const leads = sqliteTable("leads", {
+export const leads = sqliteTable(
+  "leads",
+  {
   id: text("id").primaryKey(),
   createdAt: text("created_at").notNull(),
   name: text("name").notNull(),
@@ -241,4 +243,51 @@ export const leads = sqliteTable("leads", {
   process: text("process"),
   message: text("message"),
   source: text("source"),
+  /** Version of the consent wording the person agreed to (see src/legal/versions.ts). */
+  consentVersion: text("consent_version"),
+  /** Confirmed: at least 18 years old and acting for a business. */
+  b2bConfirmed: integer("b2b_confirmed", { mode: "boolean" }).notNull().default(false),
+  marketingEmail: integer("marketing_email", { mode: "boolean" }).notNull().default(false),
+  phoneCallback: integer("phone_callback", { mode: "boolean" }).notNull().default(false),
+  /** Secret for the personal data page and one-click unsubscribe (shown once after submitting). */
+  accessToken: text("access_token"),
+  unsubscribedAt: text("unsubscribed_at"),
+  },
+  (t) => [index("leads_token_idx").on(t.accessToken), index("leads_email_idx").on(t.email)],
+);
+
+/**
+ * Proof of consent (Art. 7(1) GDPR): one row per purpose and decision, with the exact wording and
+ * version shown. Cookie-banner rows only reference a random id, never a person.
+ */
+export const consentRecords = sqliteTable(
+  "consent_records",
+  {
+    id: text("id").primaryKey(),
+    subjectType: text("subject_type").notNull(), // cookie | lead | demo
+    subjectId: text("subject_id").notNull(),
+    createdAt: text("created_at").notNull(),
+    purpose: text("purpose").notNull(),
+    granted: integer("granted", { mode: "boolean" }).notNull(),
+    version: text("version").notNull(),
+    text: text("text").notNull(),
+    lang: text("lang").notNull(),
+    source: text("source").notNull(),
+  },
+  (t) => [index("consent_subject_idx").on(t.subjectType, t.subjectId)],
+);
+
+/** Data-subject requests (Art. 15–21 GDPR) with the one-month response deadline (Art. 12(3)). */
+export const privacyRequests = sqliteTable("privacy_requests", {
+  id: text("id").primaryKey(),
+  createdAt: text("created_at").notNull(),
+  type: text("type").notNull(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  message: text("message"),
+  status: text("status").notNull(), // open | completed
+  dueAt: text("due_at").notNull(),
+  completedAt: text("completed_at"),
+  /** What was done automatically (e.g. self-service deletion), for the operator's records. */
+  result: text("result"),
 });

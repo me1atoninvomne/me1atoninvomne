@@ -443,7 +443,7 @@ function WorkflowEditor({
                         .filter((r) => r.code !== "RULE_CONTINUE" || sim.route === "auto")
                         .map((r, i) => (
                           <li key={i} className="flex gap-1.5">
-                            <span className="text-slate-400">•</span>
+                            <span className="text-slate-500">•</span>
                             {reasonText(r as Parameters<typeof reasonText>[0], d, f, ruleName)}
                           </li>
                         ))}
@@ -528,7 +528,7 @@ function FlowNode({
       </span>
       <div className="min-w-0 flex-1">
         <p className="flex items-center gap-1.5 text-[13px] font-semibold text-slate-900">
-          {index != null && <span className="tabular text-[11px] font-medium text-slate-400">{index}</span>}
+          {index != null && <span className="tabular text-[11px] font-medium text-slate-500">{index}</span>}
           {d.step[type].title}
           {state === "active" && <Check className="size-3.5 text-navy-700" aria-hidden />}
         </p>

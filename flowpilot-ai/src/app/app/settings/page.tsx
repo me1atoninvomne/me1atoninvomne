@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SettingsView } from "@/components/app/config/settings-view";
+import { DEMO_TTL_HOURS } from "@/legal/context";
 import { requireSession } from "@/server/auth/session";
 import { getSettingsPage } from "@/server/services/config-queries";
 
@@ -17,6 +18,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
       data={data}
       currentUserId={s.user.id}
       initialTab={tab}
+      demoTtlHours={DEMO_TTL_HOURS}
       permissions={{
         settings: s.can("settings.edit"),
         users: s.can("users.manage"),

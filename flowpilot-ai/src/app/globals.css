@@ -22,6 +22,10 @@
   --color-series-2: #eb6834;
   --color-grid: #e7e9ee;
 
+  /* Slightly darker than Tailwind's default slate-500 so secondary text reaches 4.5:1 on the
+     app background (#f6f7f9) and on slate-100 surfaces (WCAG 1.4.3). */
+  --color-slate-500: #56677e;
+
   --radius-xs: 3px;
   --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
   --shadow-pop: 0 12px 32px -8px rgba(16, 24, 40, 0.18), 0 4px 8px -4px rgba(16, 24, 40, 0.08);
@@ -109,5 +113,17 @@ mark.source-hit {
   }
   body {
     background: #fff;
+  }
+}
+
+/* Respect the OS setting for reduced motion (WCAG 2.3.3). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

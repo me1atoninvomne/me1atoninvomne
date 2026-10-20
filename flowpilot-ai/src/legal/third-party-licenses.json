@@ -1,0 +1,1449 @@
+[
+  {
+    "name": "@anthropic-ai/sdk",
+    "version": "0.135.0",
+    "license": "MIT",
+    "repository": "https://github.com/anthropics/anthropic-sdk-typescript",
+    "author": "Anthropic <support@anthropic.com>",
+    "installed": true
+  },
+  {
+    "name": "@babel/runtime",
+    "version": "7.29.10",
+    "license": "MIT",
+    "repository": "https://github.com/babel/babel",
+    "author": "The Babel Team (https://babel.dev/team)",
+    "installed": true
+  },
+  {
+    "name": "@emnapi/runtime",
+    "version": "1.11.3",
+    "license": "MIT",
+    "repository": "https://github.com/toyobayashi/emnapi",
+    "author": "toyobayashi",
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@floating-ui/core",
+    "version": "1.8.0",
+    "license": "MIT",
+    "repository": "https://github.com/floating-ui/floating-ui",
+    "author": "atomiks",
+    "installed": true
+  },
+  {
+    "name": "@floating-ui/dom",
+    "version": "1.8.0",
+    "license": "MIT",
+    "repository": "https://github.com/floating-ui/floating-ui",
+    "author": "atomiks",
+    "installed": true
+  },
+  {
+    "name": "@floating-ui/react-dom",
+    "version": "2.1.9",
+    "license": "MIT",
+    "repository": "https://github.com/floating-ui/floating-ui",
+    "author": "atomiks",
+    "installed": true
+  },
+  {
+    "name": "@floating-ui/utils",
+    "version": "0.2.12",
+    "license": "MIT",
+    "repository": "https://github.com/floating-ui/floating-ui",
+    "author": "atomiks",
+    "installed": true
+  },
+  {
+    "name": "@fontsource-variable/inter",
+    "version": "5.3.0",
+    "license": "OFL-1.1",
+    "repository": "https://github.com/fontsource/font-files",
+    "author": "Google Inc.",
+    "installed": true
+  },
+  {
+    "name": "@img/colour",
+    "version": "1.1.0",
+    "license": "MIT",
+    "repository": "https://github.com/lovell/colour",
+    "author": null,
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-darwin-arm64",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-darwin-x64",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-freebsd-wasm32",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-libvips-darwin-arm64",
+    "version": "1.3.4",
+    "license": "LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-libvips-darwin-x64",
+    "version": "1.3.4",
+    "license": "LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-libvips-linux-arm",
+    "version": "1.3.4",
+    "license": "LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-libvips-linux-arm64",
+    "version": "1.3.4",
+    "license": "LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-libvips-linux-ppc64",
+    "version": "1.3.4",
+    "license": "LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-libvips-linux-riscv64",
+    "version": "1.3.4",
+    "license": "LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-libvips-linux-s390x",
+    "version": "1.3.4",
+    "license": "LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-libvips-linux-x64",
+    "version": "1.3.4",
+    "license": "LGPL-3.0-or-later",
+    "repository": "https://github.com/lovell/sharp-libvips",
+    "author": "Lovell Fuller <npm@lovell.info>",
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-libvips-linuxmusl-arm64",
+    "version": "1.3.4",
+    "license": "LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-libvips-linuxmusl-x64",
+    "version": "1.3.4",
+    "license": "LGPL-3.0-or-later",
+    "repository": "https://github.com/lovell/sharp-libvips",
+    "author": "Lovell Fuller <npm@lovell.info>",
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-linux-arm",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-linux-arm64",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-linux-ppc64",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-linux-riscv64",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-linux-s390x",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-linux-x64",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/lovell/sharp",
+    "author": "Lovell Fuller <npm@lovell.info>",
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-linuxmusl-arm64",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-linuxmusl-x64",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/lovell/sharp",
+    "author": "Lovell Fuller <npm@lovell.info>",
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-wasm32",
+    "version": "0.35.5",
+    "license": "Apache-2.0 AND LGPL-3.0-or-later AND MIT",
+    "repository": "https://github.com/lovell/sharp",
+    "author": "Lovell Fuller <npm@lovell.info>",
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-webcontainers-wasm32",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-win32-arm64",
+    "version": "0.35.5",
+    "license": "Apache-2.0 AND LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-win32-ia32",
+    "version": "0.35.5",
+    "license": "Apache-2.0 AND LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@img/sharp-win32-x64",
+    "version": "0.35.5",
+    "license": "Apache-2.0 AND LGPL-3.0-or-later",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@libsql/client",
+    "version": "0.18.0",
+    "license": "MIT",
+    "repository": "https://github.com/tursodatabase/libsql-client-ts",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@libsql/core",
+    "version": "0.18.0",
+    "license": "MIT",
+    "repository": "https://github.com/tursodatabase/libsql-client-ts",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@libsql/darwin-arm64",
+    "version": "0.5.29",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@libsql/darwin-x64",
+    "version": "0.5.29",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@libsql/hrana-client",
+    "version": "0.10.0",
+    "license": "MIT",
+    "repository": "https://github.com/libsql/hrana-client-ts",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@libsql/isomorphic-ws",
+    "version": "0.1.5",
+    "license": "MIT",
+    "repository": "https://github.com/libsql/isomorphic-ts",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@libsql/linux-arm-gnueabihf",
+    "version": "0.5.29",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@libsql/linux-arm-musleabihf",
+    "version": "0.5.29",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@libsql/linux-arm64-gnu",
+    "version": "0.5.29",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@libsql/linux-arm64-musl",
+    "version": "0.5.29",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@libsql/linux-x64-gnu",
+    "version": "0.5.29",
+    "license": "MIT",
+    "repository": "https://github.com/tursodatabase/libsql-js",
+    "author": "Pekka Enberg <penberg@iki.fi>",
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@libsql/linux-x64-musl",
+    "version": "0.5.29",
+    "license": "MIT",
+    "repository": "https://github.com/tursodatabase/libsql-js",
+    "author": "Pekka Enberg <penberg@iki.fi>",
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@libsql/win32-x64-msvc",
+    "version": "0.5.29",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@neon-rs/load",
+    "version": "0.0.4",
+    "license": "MIT",
+    "repository": "https://github.com/dherman/neon-rs",
+    "author": "Dave Herman <david.herman@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "@next/env",
+    "version": "16.4.2",
+    "license": "MIT",
+    "repository": "https://github.com/vercel/next.js",
+    "author": "Next.js Team <support@vercel.com>",
+    "installed": true
+  },
+  {
+    "name": "@next/swc-darwin-arm64",
+    "version": "16.4.2",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@next/swc-darwin-x64",
+    "version": "16.4.2",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@next/swc-linux-arm64-gnu",
+    "version": "16.4.2",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@next/swc-linux-arm64-musl",
+    "version": "16.4.2",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@next/swc-linux-x64-gnu",
+    "version": "16.4.2",
+    "license": "MIT",
+    "repository": "https://github.com/vercel/next.js",
+    "author": null,
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@next/swc-linux-x64-musl",
+    "version": "16.4.2",
+    "license": "MIT",
+    "repository": "https://github.com/vercel/next.js",
+    "author": null,
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "@next/swc-win32-arm64-msvc",
+    "version": "16.4.2",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@next/swc-win32-x64-msvc",
+    "version": "16.4.2",
+    "license": "MIT",
+    "repository": null,
+    "author": null,
+    "installed": false,
+    "optional": true
+  },
+  {
+    "name": "@opentelemetry/api",
+    "version": "1.9.1",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/open-telemetry/opentelemetry-js",
+    "author": "OpenTelemetry Authors",
+    "installed": true
+  },
+  {
+    "name": "@pdf-lib/standard-fonts",
+    "version": "1.0.0",
+    "license": "MIT",
+    "repository": "https://github.com/Hopding/standard-fonts",
+    "author": "Andrew Dillon <andrew.dillon.j@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "@pdf-lib/upng",
+    "version": "1.0.1",
+    "license": "MIT",
+    "repository": "https://github.com/Hopding/upng",
+    "author": "photopea (https://github.com/photopea)",
+    "installed": true
+  },
+  {
+    "name": "@playwright/test",
+    "version": "1.59.0",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/microsoft/playwright",
+    "author": "Microsoft Corporation",
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/number",
+    "version": "1.1.3",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/primitive",
+    "version": "1.2.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-accessible-icon",
+    "version": "1.2.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-accordion",
+    "version": "1.3.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-alert-dialog",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-arrow",
+    "version": "1.1.17",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-aspect-ratio",
+    "version": "1.2.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-avatar",
+    "version": "1.3.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-checkbox",
+    "version": "1.4.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-collapsible",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-collection",
+    "version": "1.2.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-compose-refs",
+    "version": "1.1.5",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-context",
+    "version": "1.3.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-context-menu",
+    "version": "2.4.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-dialog",
+    "version": "1.3.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-direction",
+    "version": "1.2.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-dismissable-layer",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-dropdown-menu",
+    "version": "2.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-focus-guards",
+    "version": "1.2.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-focus-scope",
+    "version": "1.3.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-form",
+    "version": "0.3.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-hover-card",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-id",
+    "version": "1.1.4",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-label",
+    "version": "2.1.17",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-menu",
+    "version": "2.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-menubar",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-navigation-menu",
+    "version": "1.4.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-one-time-password-field",
+    "version": "0.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-password-toggle-field",
+    "version": "0.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-popover",
+    "version": "1.3.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-popper",
+    "version": "1.4.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-portal",
+    "version": "1.2.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-presence",
+    "version": "1.1.11",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-primitive",
+    "version": "2.2.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-progress",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-radio-group",
+    "version": "1.5.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-roving-focus",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-scroll-area",
+    "version": "1.4.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-select",
+    "version": "2.4.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-separator",
+    "version": "1.2.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-slider",
+    "version": "1.6.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-slot",
+    "version": "1.5.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-switch",
+    "version": "1.4.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-tabs",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-toast",
+    "version": "1.3.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-toggle",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-toggle-group",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-toolbar",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-tooltip",
+    "version": "1.4.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-use-callback-ref",
+    "version": "1.1.5",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-use-controllable-state",
+    "version": "1.3.0",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-use-effect-event",
+    "version": "0.0.5",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-use-escape-keydown",
+    "version": "1.1.6",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-use-is-hydrated",
+    "version": "0.1.3",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-use-layout-effect",
+    "version": "1.1.4",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-use-previous",
+    "version": "1.1.4",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-use-rect",
+    "version": "1.1.4",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-use-size",
+    "version": "1.1.5",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/react-visually-hidden",
+    "version": "1.2.13",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@radix-ui/rect",
+    "version": "1.1.3",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@stablelib/base64",
+    "version": "1.0.1",
+    "license": "MIT",
+    "repository": "https://github.com/StableLib/stablelib",
+    "author": "Dmitry Chestnykh",
+    "installed": true
+  },
+  {
+    "name": "@swc/helpers",
+    "version": "0.5.23",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/swc-project/swc",
+    "author": "강동윤 <kdy1997.dev@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "@types/node",
+    "version": "22.20.5",
+    "license": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@types/react",
+    "version": "19.3.0",
+    "license": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@types/react-dom",
+    "version": "19.3.0",
+    "license": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "@types/ws",
+    "version": "8.18.2",
+    "license": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "aria-hidden",
+    "version": "1.2.6",
+    "license": "MIT",
+    "repository": "https://github.com/theKashey/aria-hidden",
+    "author": "Anton Korzunov <thekashey@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "baseline-browser-mapping",
+    "version": "2.11.29",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/web-platform-dx/baseline-browser-mapping",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "caniuse-lite",
+    "version": "1.0.30001816",
+    "license": "CC-BY-4.0",
+    "repository": "https://github.com/browserslist/caniuse-lite",
+    "author": "Ben Briggs",
+    "installed": true
+  },
+  {
+    "name": "client-only",
+    "version": "0.0.1",
+    "license": "MIT",
+    "repository": "https://reactjs.org/",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "clsx",
+    "version": "2.1.1",
+    "license": "MIT",
+    "repository": "https://github.com/lukeed/clsx",
+    "author": "Luke Edwards",
+    "installed": true
+  },
+  {
+    "name": "csstype",
+    "version": "3.2.3",
+    "license": "MIT",
+    "repository": "https://github.com/frenic/csstype",
+    "author": "Fredrik Nicol <fredrik.nicol@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "detect-libc",
+    "version": "2.0.2",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/lovell/detect-libc",
+    "author": "Lovell Fuller <npm@lovell.info>",
+    "installed": true
+  },
+  {
+    "name": "detect-libc",
+    "version": "2.1.2",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/lovell/detect-libc",
+    "author": "Lovell Fuller <npm@lovell.info>",
+    "installed": true
+  },
+  {
+    "name": "detect-node-es",
+    "version": "1.1.0",
+    "license": "MIT",
+    "repository": "https://github.com/thekashey/detect-node",
+    "author": "Ilya Kantor",
+    "installed": true
+  },
+  {
+    "name": "drizzle-orm",
+    "version": "0.45.4",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/drizzle-team/drizzle-orm",
+    "author": "Drizzle Team",
+    "installed": true
+  },
+  {
+    "name": "fast-sha256",
+    "version": "1.3.0",
+    "license": "Unlicense",
+    "repository": "https://github.com/dchest/fast-sha256-js",
+    "author": "Dmitry Chestnykh",
+    "installed": true
+  },
+  {
+    "name": "get-nonce",
+    "version": "1.0.1",
+    "license": "MIT",
+    "repository": "https://github.com/theKashey/get-nonce",
+    "author": "Anton Korzunov <thekashey@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "js-base64",
+    "version": "3.9.4",
+    "license": "BSD-3-Clause",
+    "repository": "https://github.com/dankogai/js-base64",
+    "author": "Dan Kogai",
+    "installed": true
+  },
+  {
+    "name": "json-schema-to-ts",
+    "version": "3.1.1",
+    "license": "MIT",
+    "repository": "https://github.com/ThomasAribart/json-schema-to-ts",
+    "author": "Thomas Aribart",
+    "installed": true
+  },
+  {
+    "name": "libsql",
+    "version": "0.5.29",
+    "license": "MIT",
+    "repository": "https://github.com/tursodatabase/libsql-js",
+    "author": "Pekka Enberg <penberg@iki.fi>",
+    "installed": true
+  },
+  {
+    "name": "lucide-react",
+    "version": "1.59.0",
+    "license": "ISC",
+    "repository": "https://github.com/lucide-icons/lucide",
+    "author": "Eric Fennis",
+    "installed": true
+  },
+  {
+    "name": "nanoid",
+    "version": "3.3.20",
+    "license": "MIT",
+    "repository": "https://github.com/ai/nanoid",
+    "author": "Andrey Sitnik <andrey@sitnik.ru>",
+    "installed": true
+  },
+  {
+    "name": "next",
+    "version": "16.4.2",
+    "license": "MIT",
+    "repository": "https://github.com/vercel/next.js",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "pako",
+    "version": "1.0.11",
+    "license": "(MIT AND Zlib)",
+    "repository": "https://github.com/nodeca/pako",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "pdf-lib",
+    "version": "1.17.1",
+    "license": "MIT",
+    "repository": "https://github.com/Hopding/pdf-lib",
+    "author": "Andrew Dillon <andrew.dillon.j@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "picocolors",
+    "version": "1.1.1",
+    "license": "ISC",
+    "repository": "https://github.com/alexeyraspopov/picocolors",
+    "author": "Alexey Raspopov",
+    "installed": true
+  },
+  {
+    "name": "playwright",
+    "version": "1.59.0",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/microsoft/playwright",
+    "author": "Microsoft Corporation",
+    "installed": true
+  },
+  {
+    "name": "playwright-core",
+    "version": "1.59.0",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/microsoft/playwright",
+    "author": "Microsoft Corporation",
+    "installed": true
+  },
+  {
+    "name": "postcss",
+    "version": "8.5.23",
+    "license": "MIT",
+    "repository": "https://github.com/postcss/postcss",
+    "author": "Andrey Sitnik <andrey@sitnik.es>",
+    "installed": true
+  },
+  {
+    "name": "promise-limit",
+    "version": "2.7.0",
+    "license": "ISC",
+    "repository": "https://github.com/featurist/promise-limit",
+    "author": "Tim Macfarlane <timmacfarlane@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "radix-ui",
+    "version": "1.8.1",
+    "license": "MIT",
+    "repository": "https://github.com/radix-ui/primitives",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "react",
+    "version": "19.3.0",
+    "license": "MIT",
+    "repository": "https://github.com/react/react",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "react-dom",
+    "version": "19.3.0",
+    "license": "MIT",
+    "repository": "https://github.com/react/react",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "react-remove-scroll",
+    "version": "2.7.2",
+    "license": "MIT",
+    "repository": "https://github.com/theKashey/react-remove-scroll",
+    "author": "Anton Korzunov <thekashey@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "react-remove-scroll-bar",
+    "version": "2.3.8",
+    "license": "MIT",
+    "repository": "https://github.com/theKashey/react-remove-scroll-bar",
+    "author": "Anton Korzunov <thekashey@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "react-style-singleton",
+    "version": "2.2.3",
+    "license": "MIT",
+    "repository": "https://github.com/theKashey/react-style-singleton",
+    "author": "Anton Korzunov (thekashey@gmail.com)",
+    "installed": true
+  },
+  {
+    "name": "scheduler",
+    "version": "0.28.0",
+    "license": "MIT",
+    "repository": "https://github.com/react/react",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "semver",
+    "version": "7.8.5",
+    "license": "ISC",
+    "repository": "https://github.com/npm/node-semver",
+    "author": "GitHub Inc.",
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "server-only",
+    "version": "0.0.1",
+    "license": "MIT",
+    "repository": "https://reactjs.org/",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "sharp",
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/lovell/sharp",
+    "author": "Lovell Fuller <npm@lovell.info>",
+    "installed": true,
+    "optional": true
+  },
+  {
+    "name": "source-map-js",
+    "version": "1.2.2",
+    "license": "BSD-3-Clause",
+    "repository": "https://github.com/7rulnik/source-map-js",
+    "author": "Valentin 7rulnik Semirulnik <v7rulnik@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "standardwebhooks",
+    "version": "1.1.1",
+    "license": "MIT",
+    "repository": "https://github.com/standard-webhooks/standard-webhooks",
+    "author": "Standard Webhooks",
+    "installed": true
+  },
+  {
+    "name": "styled-jsx",
+    "version": "5.1.6",
+    "license": "MIT",
+    "repository": "https://github.com/vercel/styled-jsx",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "ts-algebra",
+    "version": "2.0.0",
+    "license": "MIT",
+    "repository": "https://github.com/ThomasAribart/ts-algebra",
+    "author": "Thomas Aribart",
+    "installed": true
+  },
+  {
+    "name": "tslib",
+    "version": "1.14.1",
+    "license": "0BSD",
+    "repository": "https://github.com/Microsoft/tslib",
+    "author": "Microsoft Corp.",
+    "installed": true
+  },
+  {
+    "name": "tslib",
+    "version": "2.8.1",
+    "license": "0BSD",
+    "repository": "https://github.com/Microsoft/tslib",
+    "author": "Microsoft Corp.",
+    "installed": true
+  },
+  {
+    "name": "undici-types",
+    "version": "6.21.0",
+    "license": "MIT",
+    "repository": "https://github.com/nodejs/undici",
+    "author": null,
+    "installed": true
+  },
+  {
+    "name": "unpdf",
+    "version": "1.9.1",
+    "license": "MIT",
+    "repository": "https://github.com/unjs/unpdf",
+    "author": "Johann Schopplich <hello@johannschopplich.com>",
+    "installed": true
+  },
+  {
+    "name": "use-callback-ref",
+    "version": "1.3.3",
+    "license": "MIT",
+    "repository": "https://github.com/theKashey/use-callback-ref/",
+    "author": "theKashey <thekashey@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "use-sidecar",
+    "version": "1.1.3",
+    "license": "MIT",
+    "repository": "https://github.com/theKashey/use-sidecar",
+    "author": "theKashey <thekashey@gmail.com>",
+    "installed": true
+  },
+  {
+    "name": "ws",
+    "version": "8.22.0",
+    "license": "MIT",
+    "repository": "https://github.com/websockets/ws",
+    "author": "Einar Otto Stangvik <einaros@gmail.com> (http://2x.io)",
+    "installed": true
+  },
+  {
+    "name": "zod",
+    "version": "4.6.7",
+    "license": "MIT",
+    "repository": "https://github.com/colinhacks/zod",
+    "author": "Colin McDonnell <zod@colinhacks.com>",
+    "installed": true
+  }
+]

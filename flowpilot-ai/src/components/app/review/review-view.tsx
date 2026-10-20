@@ -13,6 +13,7 @@ import { reasonText } from "@/i18n/domain";
 import { reviewDict } from "@/i18n/ui/review";
 import { useMutation } from "@/lib/api-client";
 import { cn } from "@/lib/cn";
+import { comfortStorage } from "@/lib/comfort-storage";
 import type { DocumentDetail } from "@/server/services/queries";
 import { Badge } from "../../ui/badge";
 import { Button, ButtonLink } from "../../ui/button";
@@ -74,14 +75,14 @@ export function ReviewView({ detail, nextId, permissions, currentUserId }: { det
   const timerKey = `fp-review-start-${doc.id}`;
   useEffect(() => {
     try {
-      if (!sessionStorage.getItem(timerKey)) sessionStorage.setItem(timerKey, String(Date.now()));
+      if (!comfortStorage("session").getItem(timerKey)) comfortStorage("session").setItem(timerKey, String(Date.now()));
     } catch {
       /* ignore */
     }
   }, [timerKey]);
   const reviewSeconds = () => {
     try {
-      const start = Number(sessionStorage.getItem(timerKey) ?? Date.now());
+      const start = Number(comfortStorage("session").getItem(timerKey) ?? Date.now());
       return Math.max(1, Math.min(1800, Math.round((Date.now() - start) / 1000)));
     } catch {
       return undefined;
@@ -89,7 +90,7 @@ export function ReviewView({ detail, nextId, permissions, currentUserId }: { det
   };
   const clearTimer = () => {
     try {
-      sessionStorage.removeItem(timerKey);
+      comfortStorage("session").removeItem(timerKey);
     } catch {
       /* ignore */
     }
@@ -235,7 +236,7 @@ export function ReviewView({ detail, nextId, permissions, currentUserId }: { det
             <ul className="mt-1 space-y-0.5 text-[13px] text-slate-600">
               {reasons.map((r, i) => (
                 <li key={i} className="flex gap-1.5">
-                  <span className="text-slate-400">•</span>
+                  <span className="text-slate-500">•</span>
                   {reasonText(r, d, f, ruleName)}
                 </li>
               ))}
@@ -271,7 +272,7 @@ export function ReviewView({ detail, nextId, permissions, currentUserId }: { det
           />
           <details className="px-4 py-3 sm:px-5">
             <summary className="cursor-pointer text-[13px] font-medium text-slate-600">{t.erpPayload}</summary>
-            <pre className="mt-2 max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 font-mono text-[11px] leading-relaxed text-slate-100">{JSON.stringify(detail.erp.payload, null, 2)}</pre>
+            <pre tabIndex={0} aria-label={t.erpPayload} className="mt-2 max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 font-mono text-[11px] leading-relaxed text-slate-100">{JSON.stringify(detail.erp.payload, null, 2)}</pre>
           </details>
         </Card>
       )}
@@ -359,7 +360,7 @@ export function ReviewView({ detail, nextId, permissions, currentUserId }: { det
                   />
                 )}
               </div>
-              {editable && <p className="text-xs text-slate-400">{t.timer}</p>}
+              {editable && <p className="text-xs text-slate-500">{t.timer}</p>}
             </TabsContent>
             <TabsContent value="compare">
               <ComparePanel detail={detail} />

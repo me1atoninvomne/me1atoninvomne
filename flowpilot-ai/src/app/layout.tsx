@@ -1,9 +1,13 @@
 import "@fontsource-variable/inter";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
+import { cookies } from "next/headers";
+import { ConsentProvider } from "@/components/consent/consent-provider";
 import { TooltipProvider } from "@/components/ui/overlay";
 import { ToastProvider } from "@/components/ui/toast";
 import { LangProvider } from "@/i18n/client";
+import { CONSENT_COOKIE, parseConsent } from "@/legal/cookies";
+import { LEGAL_VERSIONS } from "@/legal/versions";
 import { getLang } from "@/server/auth/session";
 
 export const metadata: Metadata = {
@@ -24,12 +28,15 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await getLang();
+  const consent = parseConsent((await cookies()).get(CONSENT_COOKIE)?.value, LEGAL_VERSIONS.consent);
   return (
     <html lang={lang}>
       <body className="min-h-dvh">
         <LangProvider lang={lang}>
           <TooltipProvider>
-            <ToastProvider>{children}</ToastProvider>
+            <ToastProvider>
+              <ConsentProvider initial={consent}>{children}</ConsentProvider>
+            </ToastProvider>
           </TooltipProvider>
         </LangProvider>
       </body>

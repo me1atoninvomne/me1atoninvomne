@@ -122,7 +122,7 @@ export function IntegrationsView({
                         <ul className="mt-1 space-y-1 text-[13px] text-slate-700">
                           {item.requirements.map((r) => (
                             <li key={r.de} className="flex gap-1.5">
-                              <span className="text-slate-400">•</span>
+                              <span className="text-slate-500">•</span>
                               <span>{r[lang]}</span>
                             </li>
                           ))}
@@ -132,7 +132,7 @@ export function IntegrationsView({
                       )}
                       {item.id === "csv_export" && (
                         <div className="mt-2.5">
-                          <ButtonLink href="/api/export/documents" size="xs" icon={<Download className="size-3.5" />}>
+                          <ButtonLink download href="/api/export/documents" size="xs" icon={<Download className="size-3.5" />}>
                             {t.exportButton}
                           </ButtonLink>
                         </div>
@@ -180,7 +180,7 @@ function ErpRecords({ rows }: { rows: ErpRow[] }) {
                   <p className="truncate">
                     {row.createdBy} · {mode(row)}
                   </p>
-                  <p className="tabular text-xs text-slate-400">{f.dateTime(row.createdAt)}</p>
+                  <p className="tabular text-xs text-slate-500">{f.dateTime(row.createdAt)}</p>
                 </div>
                 <Link href={`/app/documents/${row.documentId}`} className="inline-flex items-center gap-1 text-[13px] font-medium text-blue-700 hover:underline">
                   {t.columns.document} <ArrowRight className="size-3.5" />
@@ -188,7 +188,7 @@ function ErpRecords({ rows }: { rows: ErpRow[] }) {
               </div>
               <details className="mt-2">
                 <summary className="cursor-pointer text-xs font-medium text-slate-500 hover:text-slate-800">{t.payload}</summary>
-                <pre className="mt-2 max-h-64 overflow-auto rounded-lg bg-slate-900 p-3 font-mono text-[11px] leading-relaxed text-slate-100">{JSON.stringify(row.payload, null, 2)}</pre>
+                <pre tabIndex={0} aria-label={t.payload} className="mt-2 max-h-64 overflow-auto rounded-lg bg-slate-900 p-3 font-mono text-[11px] leading-relaxed text-slate-100">{JSON.stringify(row.payload, null, 2)}</pre>
               </details>
             </li>
           ))}

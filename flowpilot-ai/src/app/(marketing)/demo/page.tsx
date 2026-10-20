@@ -1,10 +1,12 @@
-import { ArrowRight, Check, Info } from "lucide-react";
+import { ArrowRight, Check, Info, Trash2 } from "lucide-react";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import { Section } from "@/components/marketing/section";
 import { ButtonLink } from "@/components/ui/button";
 import { Callout } from "@/components/ui/feedback";
 import { DEFAULT_INDUSTRY, INDUSTRY_KEYS, INDUSTRY_TEMPLATES, type IndustryKey } from "@/domain/templates";
+import { legalDict } from "@/i18n/ui/legal";
 import { marketingPagesDict } from "@/i18n/ui/marketing-pages";
 import { getLang, WS_COOKIE } from "@/server/auth/session";
 
@@ -12,15 +14,21 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: marketingPagesDict[await getLang()].demo.metaTitle };
 }
 
-export default async function DemoPage({ searchParams }: { searchParams: Promise<{ expired?: string; industry?: string }> }) {
+export default async function DemoPage({ searchParams }: { searchParams: Promise<{ expired?: string; industry?: string; deleted?: string; error?: string }> }) {
   const lang = await getLang();
   const t = marketingPagesDict[lang].demo;
+  const l = legalDict[lang];
   const sp = await searchParams;
   const hasDemo = Boolean((await cookies()).get(WS_COOKIE)?.value) && sp.expired !== "1";
   const preselected: IndustryKey = INDUSTRY_KEYS.includes(sp.industry as IndustryKey) ? (sp.industry as IndustryKey) : DEFAULT_INDUSTRY;
 
   return (
     <Section level={1} eyebrow={t.eyebrow} title={t.title} text={t.text}>
+      {sp.deleted === "1" && (
+        <Callout tone="success" className="mb-6 max-w-3xl">
+          {l.deleteDemo.done}
+        </Callout>
+      )}
       {sp.expired === "1" && (
         <Callout tone="info" className="mb-6 max-w-3xl">
           {t.expired}
@@ -32,9 +40,19 @@ export default async function DemoPage({ searchParams }: { searchParams: Promise
           className="mb-6 max-w-3xl"
           title={t.running}
           action={
-            <ButtonLink href="/app" variant="primary" size="sm">
-              {t.runningCta} <ArrowRight className="size-4" />
-            </ButtonLink>
+            <div className="flex flex-wrap gap-2">
+              <ButtonLink href="/app" variant="primary" size="sm">
+                {t.runningCta} <ArrowRight className="size-4" />
+              </ButtonLink>
+              <form action="/api/demo/delete" method="post">
+                <button
+                  type="submit"
+                  className="inline-flex h-8 items-center gap-1.5 rounded-md bg-white px-3 text-sm font-medium text-red-700 ring-1 ring-red-300 ring-inset hover:bg-red-50"
+                >
+                  <Trash2 className="size-4" aria-hidden /> {l.deleteDemo.action}
+                </button>
+              </form>
+            </div>
           }
         >
           {t.orNew}
@@ -63,7 +81,7 @@ export default async function DemoPage({ searchParams }: { searchParams: Promise
           </ul>
         </aside>
 
-        <form action="/api/demo/start" method="post" className="order-1 rounded-2xl lg:order-2 bg-white p-5 ring-1 ring-slate-200 sm:p-6">
+        <form id="demo-start" action="/api/demo/start" method="post" className="order-1 scroll-mt-24 rounded-2xl bg-white p-5 ring-1 ring-slate-200 lg:order-2 sm:p-6">
           <fieldset>
             <legend className="text-base font-semibold text-slate-900">{t.choose}</legend>
             <p className="mt-1 flex items-start gap-1.5 text-sm text-slate-500">
@@ -86,14 +104,39 @@ export default async function DemoPage({ searchParams }: { searchParams: Promise
                       </span>
                     </span>
                     <span className="mt-0.5 text-[13px] text-slate-500">{tpl.audience[lang]}</span>
-                    <span className="mt-2.5 text-xs font-semibold tracking-wide text-slate-400 uppercase">{t.processLabel}</span>
+                    <span className="mt-2.5 text-xs font-semibold tracking-wide text-slate-500 uppercase">{t.processLabel}</span>
                     <span className="mt-1 text-[13px] leading-snug text-slate-600">{tpl.process.slice(0, 3).map((p) => p[lang]).join(" · ")}</span>
                   </label>
                 );
               })}
             </div>
           </fieldset>
-          <div className="mt-6 flex flex-col gap-3 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-6 border-t border-slate-100 pt-5">
+            <label className="flex items-start gap-2.5 text-sm leading-snug text-slate-700">
+              <input
+                type="checkbox"
+                name="confirmAge"
+                required
+                aria-required="true"
+                aria-invalid={sp.error === "age" || undefined}
+                aria-describedby={sp.error === "age" ? "demo-age-error" : undefined}
+                className="mt-0.5 size-4 shrink-0 rounded border-slate-300 accent-navy-800"
+              />
+              <span>
+                {l.consents.demoAge} {l.consents.demoTermsPrefix}{" "}
+                <Link href="/agb" className="font-medium text-navy-700 underline underline-offset-2">
+                  {l.consents.demoTermsLink}
+                </Link>
+                .
+              </span>
+            </label>
+            {sp.error === "age" && (
+              <p id="demo-age-error" className="mt-1.5 text-xs text-red-700" role="alert">
+                {l.consents.ageRequired}
+              </p>
+            )}
+          </div>
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs text-slate-500">{marketingPagesDict[lang].demo.facts[2].text}</p>
             <button
               type="submit"

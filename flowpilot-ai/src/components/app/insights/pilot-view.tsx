@@ -10,6 +10,7 @@ import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 import { Card, CardHeader, PageHeader } from "../../ui/card";
 import { Callout, ProgressBar } from "../../ui/feedback";
+import { ScrollX } from "../../ui/scroll-x";
 
 const PILOT_LIMIT = 300;
 const PILOT_WEEKS = 7;
@@ -132,7 +133,7 @@ export function PilotView({ data, today }: { data: PilotPageData; today: string 
       <div className="mb-4 grid gap-4 lg:grid-cols-5">
         <Card className="min-w-0 lg:col-span-3" as="div">
           <CardHeader title={t.kpiTitle} />
-          <div className="overflow-x-auto">
+          <ScrollX>
             <table className="w-full text-[13px]">
               <thead>
                 <tr className="border-b border-slate-100 text-left text-xs text-slate-500">
@@ -147,17 +148,17 @@ export function PilotView({ data, today }: { data: PilotPageData; today: string 
                     <td className="px-4 py-2.5 font-medium text-slate-700 sm:px-5">{k.label}</td>
                     <td className="px-3 py-2.5 text-right whitespace-nowrap">
                       <span className="tabular block text-slate-900">{k.before}</span>
-                      <span className="block text-[11px] text-slate-400">{k.beforeSource}</span>
+                      <span className="block text-[11px] text-slate-500">{k.beforeSource}</span>
                     </td>
                     <td className="px-4 py-2.5 text-right sm:px-5">
                       <span className="tabular block font-semibold text-slate-900">{k.after}</span>
-                      <span className="block text-[11px] text-slate-400">{k.afterSource}</span>
+                      <span className="block text-[11px] text-slate-500">{k.afterSource}</span>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div>
+          </ScrollX>
         </Card>
         <Card className="min-w-0 lg:col-span-2" as="div">
           <CardHeader title={t.qualityTitle} description={t.qualityDescription} />
@@ -170,7 +171,7 @@ export function PilotView({ data, today }: { data: PilotPageData; today: string 
 
       <Card className="mb-4" as="div">
         <CardHeader title={t.criteriaTitle} actions={<span className="tabular text-xs text-slate-500">{`${reachedCount}/${criteria.length} ${t.reached}`}</span>} />
-        <div className="overflow-x-auto">
+        <ScrollX>
           <table className="w-full min-w-[560px] text-[13px]">
             <thead>
               <tr className="border-b border-slate-100 text-left text-xs text-slate-500">
@@ -201,7 +202,7 @@ export function PilotView({ data, today }: { data: PilotPageData; today: string 
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollX>
       </Card>
 
       <Card as="article" aria-labelledby="pilot-report-title" className="break-inside-avoid">
