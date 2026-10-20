@@ -14,6 +14,9 @@ export const marketingDict = defineDict({
       menu: "Menü öffnen",
       close: "Menü schließen",
       language: "Sprache",
+      home: "FlowPilot AI – Startseite",
+      main: "Hauptnavigation",
+      mobile: "Mobile Navigation",
     },
     cta: {
       demo: "Demo starten",
@@ -37,7 +40,7 @@ export const marketingDict = defineDict({
       eyebrow: "Für Produktion, Großhandel, Logistik und Auftragsabwicklung",
       title: "Weniger manuelle Arbeit. Weniger Fehler. Mehr Zeit fürs Geschäft.",
       promise: "Wir automatisieren Ihre Auftrags- und Dokumentenprozesse, ohne Ihre bestehenden Systeme ersetzen zu müssen.",
-      sub: "FlowPilot AI liest Bestellungen, Rechnungen und Auftragsbestätigungen aus Ihrem Postfach, prüft sie gegen Ihre Stammdaten und legt Ihrem Team nur die Fälle vor, die wirklich einen Menschen brauchen.",
+      sub: "FlowPilot AI liest Bestellungen, Rechnungen und Auftragsbestätigungen aus Ihrem Postfach, prüft sie gegen Ihre Stammdaten und legt Ihrem Team die Fälle vor, die nach Ihren Regeln eine menschliche Prüfung brauchen.",
       note: "Ohne Anmeldung, ohne API-Schlüssel – mit synthetischen Beispieldaten.",
     },
     visual: {
@@ -60,11 +63,13 @@ export const marketingDict = defineDict({
       decisionTitle: "Prüfung durch Vertrieb",
       decisionText: "Automatische Übernahme gesperrt, bis die Abweichung geklärt ist.",
       confidence: "Sicherheit 99 %",
+      pause: "Animation anhalten",
+      play: "Animation abspielen",
     },
     problem: {
       eyebrow: "Das Problem",
       title: "Jeden Tag dieselbe Kette – und jedes Glied kostet Zeit",
-      text: "In vielen Unternehmen landen Bestellungen, Rechnungen und Bestätigungen als PDF im Postfach. Danach beginnt Handarbeit: lesen, abtippen, vergleichen, nachfragen, weiterleiten. Fehler fallen oft erst auf, wenn die Ware schon unterwegs ist oder die Rechnung bezahlt wurde.",
+      text: "In vielen Unternehmen landen Bestellungen, Rechnungen und Bestätigungen als PDF im Postfach. Danach beginnt Handarbeit: lesen, abtippen, vergleichen, nachfragen, weiterleiten. Fehler fallen dann mitunter erst auf, wenn die Ware schon unterwegs ist oder die Rechnung bezahlt wurde.",
       chain: [
         { title: "Outlook", text: "E-Mail öffnen, Anhang suchen, Absender zuordnen" },
         { title: "PDF", text: "Bestellnummer, Positionen und Termine lesen" },
@@ -121,12 +126,12 @@ export const marketingDict = defineDict({
         { title: "Erkennen", text: "Dokumenttyp bestimmen und Belegdaten mit Fundstelle und Sicherheit extrahieren. Was nicht im Dokument steht, bleibt leer." },
         { title: "Prüfen", text: "Abgleich mit Kunden-, Lieferanten- und Artikelstamm, Rahmenpreisen, offenen Bestellungen und bereits gebuchten Rechnungen." },
         { title: "Entscheiden", text: "Ihre Regeln legen fest, was automatisch weiterläuft und was ein Mensch prüft oder freigibt." },
-        { title: "Übergeben", text: "Geprüfte Daten gehen als Entwurf in Ihr ERP, die zuständige Person wird informiert – alles nachvollziehbar protokolliert." },
+        { title: "Übergeben", text: "Geprüfte Daten gehen als Entwurf in Ihr ERP, die zuständige Person wird informiert – nachvollziehbar protokolliert." },
       ],
     },
     features: {
       eyebrow: "Funktionen",
-      title: "Ein Werkzeug für einen teuren, klar umrissenen Prozess",
+      title: "Ein Werkzeug für einen aufwendigen, klar umrissenen Prozess",
       items: [
         { key: "inbox", title: "Live AI Inbox", text: "Jede E-Mail mit Kurzfassung, Dokumenttyp, Zuständigkeit, nächstem Schritt und Status." },
         { key: "doc", title: "Document Intelligence", text: "Bestellungen, Rechnungen, Auftragsbestätigungen, Lieferscheine, Anfragen und Verzugsmeldungen – mit Fundstelle und Sicherheit je Feld." },
@@ -135,7 +140,7 @@ export const marketingDict = defineDict({
         { key: "workflow", title: "Workflow Builder", text: "Prozesse visuell nachvollziehen, Schwellenwerte und Freigabegrenzen ohne Programmierung anpassen." },
         { key: "roi", title: "ROI-Dashboard", text: "Freigesetzte Zeit, Kosten und Amortisation – transparent gerechnet und klar von echten Einsparungen getrennt." },
         { key: "radar", title: "Exception Radar", text: "Nur was Aufmerksamkeit braucht: kritische Abweichungen, Verzug, Duplikate, überfällige Aufgaben." },
-        { key: "timeline", title: "Activity Timeline", text: "Jeder Schritt der KI und jede menschliche Entscheidung lückenlos im Protokoll." },
+        { key: "timeline", title: "Activity Timeline", text: "Schritte der KI und menschliche Entscheidungen nachvollziehbar im Protokoll – mit Zeitpunkt, Akteur und, wo erforderlich, Begründung." },
       ],
     },
     industries: {
@@ -146,19 +151,19 @@ export const marketingDict = defineDict({
     },
     security: {
       eyebrow: "Sicherheit & Kontrolle",
-      title: "Die KI arbeitet zu – entscheiden kann immer ein Mensch",
+      title: "Die KI arbeitet zu – kritische Fälle entscheidet ein Mensch",
       text: "Wir sagen offen, was diese Version bereits umsetzt und was für den Produktivbetrieb noch eingerichtet wird.",
       doneTitle: "Umgesetzt in dieser Version",
       plannedTitle: "Geplant bzw. bei Einführung",
       done: [
         "Rollen und Rechte (Sachbearbeitung, Teamleitung, Administration, Lesezugriff)",
         "Vier-Augen-Prinzip für Rechnungen und akzeptierte kritische Abweichungen",
-        "Aktivitätsprotokoll nur anhängend – keine Bearbeitung oder Löschung von Einträgen",
-        "Keine automatische Zahlungsfreigabe – Rechnungen gibt immer ein Mensch frei",
+        "Aktivitätsprotokoll nur anhängend – Einträge lassen sich in der Anwendung weder bearbeiten noch einzeln löschen",
+        "Keine automatische Zahlungsfreigabe – Rechnungen werden in dieser Version nie automatisch freigegeben",
         "Übergabe an Zielsysteme nur als Entwurf, nie als Buchung",
         "Aufbewahrungsregeln mit Löschung von Originaldateien",
         "API-Schlüssel ausschließlich serverseitig",
-        "Schriftarten lokal eingebunden, kein Tracking",
+        "Schriftarten lokal eingebunden, keine Analyse- oder Tracking-Dienste",
       ],
       planned: [
         "Single Sign-on über Microsoft Entra ID",
@@ -184,6 +189,7 @@ export const marketingDict = defineDict({
       price: "3.000–15.000 €",
       priceVat: "zzgl. MwSt.",
       priceNote: "Der genaue Umfang wird vor Beginn schriftlich festgelegt.",
+      references: "Es gibt noch keine veröffentlichten Kundenreferenzen. Deshalb zeigen wir keine Erfolgszahlen, sondern messen die Wirkung im Pilotprojekt mit Ihren eigenen Dokumenten – und Sie können die Demo vorher selbst testen.",
     },
     faq: {
       eyebrow: "FAQ",
@@ -207,17 +213,17 @@ export const marketingDict = defineDict({
         },
         {
           q: "Was kostet das?",
-          a: "Einrichtung bzw. Pilotprojekt je nach Umfang 3.000–15.000 €, danach eine monatliche Plattformgebühr von 590 € bis ca. 2.000 € je nach Prozessen und Dokumentvolumen. Alle Preise zzgl. MwSt.",
+          a: "Einrichtung bzw. Pilotprojekt je nach Umfang 3.000–15.000 €, danach eine monatliche Plattformgebühr: 590 € (Starter), 1.290 € (Business) oder ab 1.990 € (Enterprise, nach Volumen), zzgl. Mehrdokumente laut Preisliste. Alle Kostenpositionen stehen vollständig auf der Preisseite. Alle Preise zzgl. MwSt.",
         },
         {
           q: "Was brauchen wir für ein Pilotprojekt?",
-          a: "Einen klar umrissenen Prozess, eine Stichprobe typischer Dokumente, Zugriff auf die relevanten Stammdaten (z. B. als Export) und eine Ansprechperson aus der Fachabteilung für etwa zwei Stunden pro Woche.",
+          a: "Einen klar umrissenen Prozess, eine Stichprobe typischer Dokumente, Zugriff auf die relevanten Stammdaten (z. B. als Export) und eine Ansprechperson aus der Fachabteilung – nach unserer Planung etwa zwei Stunden pro Woche.",
         },
       ],
     },
     finalCta: {
       title: "Lassen Sie uns über Ihren Prozess sprechen",
-      text: "In 30 Minuten klären wir, ob sich Ihr Prozess für die Automatisierung eignet – und ob sich ein Pilotprojekt rechnet. Ehrlich, auch wenn die Antwort „nein“ lautet.",
+      text: "In einem etwa 30-minütigen Gespräch klären wir, ob sich Ihr Prozess für die Automatisierung eignet – und ob sich ein Pilotprojekt rechnen kann. Ehrlich, auch wenn die Antwort „nein“ lautet.",
     },
   },
   en: {
@@ -232,6 +238,9 @@ export const marketingDict = defineDict({
       menu: "Open menu",
       close: "Close menu",
       language: "Language",
+      home: "FlowPilot AI – home",
+      main: "Main navigation",
+      mobile: "Mobile navigation",
     },
     cta: {
       demo: "Start demo",
@@ -255,7 +264,7 @@ export const marketingDict = defineDict({
       eyebrow: "For manufacturing, wholesale, logistics and order processing",
       title: "Less manual work. Fewer errors. More time for business.",
       promise: "We automate your order and document processes without replacing your existing systems.",
-      sub: "FlowPilot AI reads purchase orders, invoices and order confirmations from your mailbox, checks them against your master data and only presents the cases that really need a person.",
+      sub: "FlowPilot AI reads purchase orders, invoices and order confirmations from your mailbox, checks them against your master data and presents your team with the cases that need human review according to your rules.",
       note: "No sign-up, no API key – with synthetic sample data.",
     },
     visual: {
@@ -278,11 +287,13 @@ export const marketingDict = defineDict({
       decisionTitle: "Review by sales",
       decisionText: "Automatic transfer blocked until the deviation is clarified.",
       confidence: "Confidence 99%",
+      pause: "Pause animation",
+      play: "Play animation",
     },
     problem: {
       eyebrow: "The problem",
       title: "The same chain every day – and every link costs time",
-      text: "In many companies purchase orders, invoices and confirmations arrive as PDFs in the mailbox. Then the manual work begins: reading, typing, comparing, asking, forwarding. Errors are often only noticed once the goods are on their way or the invoice has been paid.",
+      text: "In many companies purchase orders, invoices and confirmations arrive as PDFs in the mailbox. Then the manual work begins: reading, typing, comparing, asking, forwarding. Errors are then sometimes only noticed once the goods are on their way or the invoice has been paid.",
       chain: [
         { title: "Outlook", text: "Open the e-mail, find the attachment, identify the sender" },
         { title: "PDF", text: "Read order number, line items and dates" },
@@ -333,12 +344,12 @@ export const marketingDict = defineDict({
         { title: "Recognise", text: "Determine the document type and extract data with source and confidence. Anything not in the document stays empty." },
         { title: "Check", text: "Match against customer, supplier and article master data, agreed prices, open orders and already booked invoices." },
         { title: "Decide", text: "Your rules define what continues automatically and what a person reviews or approves." },
-        { title: "Hand over", text: "Checked data goes to your ERP as a draft and the responsible person is notified – fully logged." },
+        { title: "Hand over", text: "Checked data goes to your ERP as a draft and the responsible person is notified – with a traceable log." },
       ],
     },
     features: {
       eyebrow: "Features",
-      title: "One tool for one expensive, well-defined process",
+      title: "One tool for one labour-intensive, well-defined process",
       items: [
         { key: "inbox", title: "Live AI inbox", text: "Every e-mail with summary, document type, responsibility, next step and status." },
         { key: "doc", title: "Document intelligence", text: "Purchase orders, invoices, order confirmations, delivery notes, RFQs and delay notices – with source and confidence per field." },
@@ -347,7 +358,7 @@ export const marketingDict = defineDict({
         { key: "workflow", title: "Workflow builder", text: "Understand processes visually, adjust thresholds and approval limits without programming." },
         { key: "roi", title: "ROI dashboard", text: "Freed time, cost and payback – calculated transparently and clearly separated from real savings." },
         { key: "radar", title: "Exception radar", text: "Only what needs attention: critical deviations, delays, duplicates, overdue tasks." },
-        { key: "timeline", title: "Activity timeline", text: "Every AI step and every human decision fully logged." },
+        { key: "timeline", title: "Activity timeline", text: "AI steps and human decisions traceable in the log – with time, actor and, where required, a reason." },
       ],
     },
     industries: {
@@ -358,19 +369,19 @@ export const marketingDict = defineDict({
     },
     security: {
       eyebrow: "Security & control",
-      title: "The AI prepares – a person can always decide",
+      title: "The AI prepares – people decide critical cases",
       text: "We say openly what this version already implements and what will be set up for production use.",
       doneTitle: "Implemented in this version",
       plannedTitle: "Planned or set up at implementation",
       done: [
         "Roles and permissions (clerk, team lead, administrator, read only)",
         "Four-eyes principle for invoices and accepted critical findings",
-        "Append-only activity log – entries cannot be edited or deleted",
-        "No automatic payment approval – invoices are always approved by a person",
+        "Append-only activity log – entries cannot be edited or individually deleted in the application",
+        "No automatic payment approval – this version never approves invoices automatically",
         "Transfer to target systems only as a draft, never as a posting",
         "Retention rules with deletion of original files",
         "API keys on the server only",
-        "Fonts served locally, no tracking",
+        "Fonts served locally, no analytics or tracking services",
       ],
       planned: [
         "Single sign-on via Microsoft Entra ID",
@@ -396,6 +407,7 @@ export const marketingDict = defineDict({
       price: "€3,000–15,000",
       priceVat: "excl. VAT",
       priceNote: "The exact scope is agreed in writing before the start.",
+      references: "There are no published customer references yet. That is why we show no success figures but measure the impact in the pilot with your own documents – and you can test the demo yourself first.",
     },
     faq: {
       eyebrow: "FAQ",
@@ -414,16 +426,16 @@ export const marketingDict = defineDict({
           q: "Which systems are supported?",
           a: "This version implements a demo mailbox, PDF upload, a demo ERP and CSV export. Connections to Microsoft 365, SharePoint, DATEV, SAP and Dynamics 365 are prepared and built in the project – we only call them “available” once they are tested.",
         },
-        { q: "What does it cost?", a: "Setup or pilot €3,000–15,000 depending on scope, then a monthly platform fee from €590 to around €2,000 depending on processes and document volume. All prices excl. VAT." },
+        { q: "What does it cost?", a: "Setup or pilot €3,000–15,000 depending on scope, then a monthly platform fee: €590 (Starter), €1,290 (Business) or from €1,990 (Enterprise, by volume), plus additional documents as per the price list. Every cost item is listed on the pricing page. All prices excl. VAT." },
         {
           q: "What do we need for a pilot?",
-          a: "A clearly defined process, a sample of typical documents, access to the relevant master data (e.g. as an export) and a contact person from the business department for about two hours per week.",
+          a: "A clearly defined process, a sample of typical documents, access to the relevant master data (e.g. as an export) and a contact person from the business department – by our planning about two hours per week.",
         },
       ],
     },
     finalCta: {
       title: "Let's talk about your process",
-      text: "In 30 minutes we clarify whether your process is suitable for automation – and whether a pilot pays off. Honestly, even if the answer is “no”.",
+      text: "In a call of about 30 minutes we clarify whether your process is suitable for automation – and whether a pilot could pay off. Honestly, even if the answer is “no”.",
     },
   },
 });

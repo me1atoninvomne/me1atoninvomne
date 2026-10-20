@@ -99,7 +99,7 @@ export function RoiCalculator({ initial, compact, onChange }: { initial?: Partia
                   onChange={(e) => update(fd.key, Number(e.target.value))}
                   className="mt-1.5 w-full accent-navy-800"
                 />
-                {fd.hint && <p className="text-xs text-slate-400">{fd.hint}</p>}
+                {fd.hint && <p className="text-xs text-slate-500">{fd.hint}</p>}
               </div>
             );
           })}
@@ -167,7 +167,7 @@ function Row({ label, hint, value, strong }: { label: string; hint?: string; val
     <div className="flex items-baseline justify-between gap-4 py-2.5">
       <dt className="text-sm text-slate-600">
         {label}
-        {hint && <span className="block text-xs text-slate-400">{hint}</span>}
+        {hint && <span className="block text-xs text-slate-500">{hint}</span>}
       </dt>
       <dd className={cn("tabular text-right text-sm", strong ? "text-base font-semibold" : "font-medium text-slate-900")}>{value}</dd>
     </div>

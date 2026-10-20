@@ -12,6 +12,7 @@ import { buildMasterData, OWN_COMPANY } from "@/server/demo/master-data";
 import { renderPdf } from "@/server/documents/pdf-render";
 import { newId, nowIso, todayIso } from "@/server/ids";
 import { audit, SYSTEM_ACTOR } from "./audit";
+import { cleanupPrivacyData } from "./privacy";
 import type { WorkspaceSettings } from "./settings-types";
 
 const DEMO_TTL_HOURS = Number(process.env.DEMO_TTL_HOURS ?? 72);
@@ -66,6 +67,7 @@ export function defaultSettings(industry: IndustryKey): WorkspaceSettings {
 export async function createDemoWorkspace(industry: IndustryKey = DEFAULT_INDUSTRY) {
   const db = await getDb();
   await cleanupExpiredWorkspaces(db);
+  await cleanupPrivacyData(db);
   const id = newId("ws", 24);
   const now = nowIso();
   await db.insert(schema.workspaces).values({
@@ -320,12 +322,15 @@ export async function cleanupExpiredWorkspaces(db: Db) {
     .select({ id: schema.workspaces.id })
     .from(schema.workspaces)
     .where(and(eq(schema.workspaces.isDemo, true), lt(schema.workspaces.lastActivityAt, cutoff)));
-  for (const { id } of expired) {
-    await clearWorkspaceData(db, id);
-    await db.delete(schema.users).where(eq(schema.users.workspaceId, id));
-    await db.delete(schema.workspaces).where(eq(schema.workspaces.id, id));
-  }
+  for (const { id } of expired) await deleteWorkspace(db, id);
   return expired.length;
+}
+
+/** Removes a workspace with every row that belongs to it (documents, files, logs, users …). */
+export async function deleteWorkspace(db: Db, workspaceId: string) {
+  await clearWorkspaceData(db, workspaceId);
+  await db.delete(schema.users).where(eq(schema.users.workspaceId, workspaceId));
+  await db.delete(schema.workspaces).where(eq(schema.workspaces.id, workspaceId));
 }
 
 export async function touchWorkspace(db: Db, workspaceId: string) {

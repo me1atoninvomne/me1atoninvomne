@@ -1,6 +1,8 @@
 "use client";
 
 import { Tabs as RTabs } from "radix-ui";
+import { useT } from "@/i18n/client";
+import { commonDict } from "@/i18n/ui/common";
 import { cn } from "@/lib/cn";
 
 export const Tabs = RTabs.Root;
@@ -22,28 +24,34 @@ export function TabsTrigger({ value, children, count }: { value: string; childre
   );
 }
 
-/** Segmented control for filters. */
+/**
+ * Segmented control for filters and view switches: a group of toggle buttons (aria-pressed),
+ * reachable with Tab and operable with Enter/Space.
+ */
 export function Segmented<T extends string>({
   value,
   onChange,
   options,
   className,
   size = "sm",
+  label,
 }: {
   value: T;
   onChange: (v: T) => void;
   options: { value: T; label: React.ReactNode; count?: number }[];
   className?: string;
   size?: "sm" | "xs";
+  /** Accessible name of the group, e.g. "Filter" or "Ansicht". */
+  label?: string;
 }) {
+  const c = useT(commonDict);
   return (
-    <div className={cn("inline-flex max-w-full overflow-x-auto rounded-lg bg-slate-100 p-0.5", className)} role="tablist">
+    <div className={cn("inline-flex max-w-full overflow-x-auto rounded-lg bg-slate-100 p-0.5", className)} role="group" aria-label={label ?? c.filterGroup}>
       {options.map((o) => (
         <button
           key={o.value}
           type="button"
-          role="tab"
-          aria-selected={value === o.value}
+          aria-pressed={value === o.value}
           onClick={() => onChange(o.value)}
           className={cn(
             "inline-flex shrink-0 items-center gap-1.5 rounded-md font-medium whitespace-nowrap transition-colors",
@@ -52,7 +60,7 @@ export function Segmented<T extends string>({
           )}
         >
           {o.label}
-          {o.count != null && <span className={cn("tabular text-xs", value === o.value ? "text-slate-500" : "text-slate-400")}>{o.count}</span>}
+          {o.count != null && <span className="tabular text-xs text-slate-500">{o.count}</span>}
         </button>
       ))}
     </div>

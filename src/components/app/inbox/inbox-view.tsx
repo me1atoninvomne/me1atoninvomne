@@ -284,7 +284,7 @@ function LivePanel({ live, emails, done, summary }: { live: LiveState; emails: I
                 key={s}
                 className={cn(
                   "rounded-md px-1.5 py-0.5 text-[11px] font-medium transition-colors",
-                  i < live.step ? "bg-emerald-50 text-emerald-700" : i === live.step ? "bg-violet-100 text-violet-800" : "bg-slate-100 text-slate-400",
+                  i < live.step ? "bg-emerald-50 text-emerald-700" : i === live.step ? "bg-violet-100 text-violet-800" : "bg-slate-100 text-slate-500",
                 )}
               >
                 {t.steps[s]}
@@ -296,7 +296,7 @@ function LivePanel({ live, emails, done, summary }: { live: LiveState; emails: I
       <div className="h-0.5 bg-slate-100">
         <div className="h-full bg-violet-500 transition-[width] duration-300" style={{ width: `${(done ? 1 : progress) * 100}%` }} />
       </div>
-      {!done && <p className="px-5 py-1.5 text-[11px] text-slate-400">{t.live.timingNote}</p>}
+      {!done && <p className="px-5 py-1.5 text-[11px] text-slate-500">{t.live.timingNote}</p>}
     </Card>
   );
 }
@@ -323,7 +323,7 @@ function EmailRow({ email, selected, liveStep, onSelect }: { email: InboxEmail; 
             {isNew && <span className="mr-1.5 inline-block size-1.5 -translate-y-0.5 rounded-full bg-blue-600" aria-hidden />}
             {email.source === "upload" ? `${t.fromUpload} · ${email.fromName}` : email.fromName}
           </p>
-          <span className="tabular shrink-0 text-xs text-slate-400" title={f.dateTime(email.receivedAt)}>
+          <span className="tabular shrink-0 text-xs text-slate-500" title={f.dateTime(email.receivedAt)}>
             {f.time(email.receivedAt)}
           </span>
         </div>
@@ -336,7 +336,7 @@ function EmailRow({ email, selected, liveStep, onSelect }: { email: InboxEmail; 
         ) : email.summary ? (
           <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-500">{email.summary[lang]}</p>
         ) : (
-          <p className="mt-1 truncate text-xs text-slate-400">{email.body.replace(/\s+/g, " ").slice(0, 120)}</p>
+          <p className="mt-1 truncate text-xs text-slate-500">{email.body.replace(/\s+/g, " ").slice(0, 120)}</p>
         )}
         <div className="mt-2 flex flex-wrap items-center gap-1.5">
           {email.status === "new" && <Badge tone="info">{t.notProcessed}</Badge>}
@@ -358,7 +358,7 @@ function EmailRow({ email, selected, liveStep, onSelect }: { email: InboxEmail; 
               <PriorityBadge priority={email.priority} />
             </>
           )}
-          {email.documents.some((d) => d.fileName) && <Paperclip className="ml-auto size-3.5 text-slate-400" aria-label="Anhang" />}
+          {email.documents.some((d) => d.fileName) && <Paperclip className="ml-auto size-3.5 text-slate-500" role="img" aria-label={t.hasAttachment} />}
         </div>
       </button>
     </li>
@@ -442,7 +442,7 @@ function EmailDetail({ email, canProcess, liveStep, onProcess }: { email: InboxE
                     <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[13px] sm:grid-cols-4">
                       <div className="min-w-0">
                         <dt className="text-xs text-slate-500">{d.fieldByType.documentNumber?.[doc.docType as DocType] ?? d.field.documentNumber}</dt>
-                        <dd className="truncate font-medium text-slate-900">{doc.documentNumber ?? <span className="text-slate-400">{d.unknown}</span>}</dd>
+                        <dd className="truncate font-medium text-slate-900">{doc.documentNumber ?? <span className="text-slate-500">{d.unknown}</span>}</dd>
                       </div>
                       <div className="min-w-0">
                         <dt className="text-xs text-slate-500">{d.fieldByType.partyName?.[doc.docType as DocType] ?? d.field.partyName}</dt>

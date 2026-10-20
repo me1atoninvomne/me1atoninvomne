@@ -19,9 +19,11 @@ const errors = [];
 page.on("pageerror", (e) => errors.push("pageerror: " + e.message));
 page.on("console", (m) => m.type() === "error" && errors.push("console: " + m.text()));
 if (process.env.NEWDEMO) {
-  const r = await page.request.post(base + "/api/demo/start", { data: { industry: process.env.INDUSTRY ?? "manufacturing" } });
+  const r = await page.request.post(base + "/api/demo/start", { data: { industry: process.env.INDUSTRY ?? "manufacturing", confirmAge: true } });
   console.log("demo start", r.status());
 }
+// Store a "necessary only" cookie choice so the banner does not cover screenshots (BANNER=1 keeps it).
+if (!process.env.BANNER) await page.request.post(base + "/api/consent", { data: { comfort: false } });
 if (process.env.LANG_EN) await page.request.post(base + "/api/session/lang", { data: { lang: "en" } });
 if (process.env.PROCESS) {
   await page.goto(base + "/app/inbox");

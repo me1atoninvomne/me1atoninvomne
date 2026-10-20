@@ -2,6 +2,8 @@
 
 import { CheckCircle2, OctagonAlert, X } from "lucide-react";
 import { createContext, useCallback, useContext, useState } from "react";
+import { useT } from "@/i18n/client";
+import { commonDict } from "@/i18n/ui/common";
 import { cn } from "@/lib/cn";
 
 interface Toast {
@@ -14,6 +16,7 @@ interface Toast {
 const ToastContext = createContext<{ push: (t: Omit<Toast, "id">) => void }>({ push: () => {} });
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
+  const closeLabel = useT(commonDict).close;
   const [toasts, setToasts] = useState<Toast[]>([]);
   const push = useCallback((t: Omit<Toast, "id">) => {
     const id = Date.now() + Math.random();
@@ -38,7 +41,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               <p className="font-medium text-slate-900">{t.title}</p>
               {t.text && <p className="mt-0.5 text-slate-600">{t.text}</p>}
             </div>
-            <button onClick={() => setToasts((l) => l.filter((x) => x.id !== t.id))} className="text-slate-400 hover:text-slate-600" aria-label="Schließen">
+            <button onClick={() => setToasts((l) => l.filter((x) => x.id !== t.id))} className="text-slate-500 hover:text-slate-600" aria-label={closeLabel}>
               <X className="size-4" />
             </button>
           </div>

@@ -193,7 +193,7 @@ function Figure({
         <p className="text-[13px] font-medium text-slate-600">{label}</p>
         {badge}
       </div>
-      <p className={cn("mt-1.5 font-semibold tracking-tight", muted ? "text-base text-slate-400" : "text-2xl", tone === "danger" ? "text-red-700" : !muted && "text-slate-900")}>{value}</p>
+      <p className={cn("mt-1.5 font-semibold tracking-tight", muted ? "text-base text-slate-500" : "text-2xl", tone === "danger" ? "text-red-700" : !muted && "text-slate-900")}>{value}</p>
       <p className="mt-1 text-xs leading-snug text-slate-500">{hint}</p>
     </div>
   );
@@ -204,7 +204,7 @@ function Row({ label, value, strong, hint }: { label: string; value: React.React
     <div className="flex items-baseline justify-between gap-4 py-2">
       <dt className="text-sm text-slate-600">
         {label}
-        {hint && <span className="block text-xs text-slate-400">{hint}</span>}
+        {hint && <span className="block text-xs text-slate-500">{hint}</span>}
       </dt>
       <dd className={cn("tabular text-right text-sm whitespace-nowrap", strong ? "text-base font-semibold" : "font-medium text-slate-900")}>{value}</dd>
     </div>

@@ -65,12 +65,19 @@ export function ButtonLink({
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
   "href"
 >) {
+  const cls = cn("inline-flex shrink-0 items-center justify-center font-medium whitespace-nowrap transition-colors", VARIANT[variant], SIZE[size], className);
+  // API routes and downloads are plain links: Next's <Link> would prefetch them in production,
+  // which would run the export (and log it) without the user clicking.
+  if (href.startsWith("/api/") || rest.download != null) {
+    return (
+      <a href={href} className={cls} {...rest}>
+        {icon}
+        {children}
+      </a>
+    );
+  }
   return (
-    <Link
-      href={href}
-      className={cn("inline-flex shrink-0 items-center justify-center font-medium whitespace-nowrap transition-colors", VARIANT[variant], SIZE[size], className)}
-      {...rest}
-    >
+    <Link href={href} className={cls} {...rest}>
       {icon}
       {children}
     </Link>

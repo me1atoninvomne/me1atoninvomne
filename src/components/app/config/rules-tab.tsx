@@ -297,7 +297,7 @@ function RuleEditor({ draft: initial, onClose }: { draft: Draft; onClose: () => 
                   <button
                     type="button"
                     onClick={() => update({ conditions: draft.conditions.filter((_, j) => j !== i) })}
-                    className="shrink-0 rounded-md p-1.5 text-slate-400 hover:bg-white hover:text-red-600"
+                    className="shrink-0 rounded-md p-1.5 text-slate-500 hover:bg-white hover:text-red-600"
                     aria-label={t.editor.removeCondition}
                   >
                     <X className="size-4" />

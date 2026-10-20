@@ -58,7 +58,7 @@ export function AuditLog({ initial, actor, query, canExport }: { initial: Timeli
   }
 
   const exportButton = canExport ? (
-    <ButtonLink href="/api/export/audit" size="sm" icon={<Download className="size-4" />}>
+    <ButtonLink download href="/api/export/audit" size="sm" icon={<Download className="size-4" />}>
       {t.export}
     </ButtonLink>
   ) : (
@@ -125,7 +125,7 @@ export function AuditLog({ initial, actor, query, canExport }: { initial: Timeli
             <AuditTimeline events={events} showDocumentLinks />
             <div className="mt-2 flex justify-center border-t border-slate-100 pt-4">
               {done ? (
-                <p className="text-xs text-slate-400">{t.noMore}</p>
+                <p className="text-xs text-slate-500">{t.noMore}</p>
               ) : (
                 <Button size="sm" onClick={loadMore} loading={loading}>
                   {t.loadMore}

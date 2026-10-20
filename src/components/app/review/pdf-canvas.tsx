@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { prefersReducedMotion } from "@/lib/motion";
 import { Spinner } from "../../ui/feedback";
 
 interface Box {
@@ -22,7 +23,20 @@ const norm = (s: string) => s.replace(/\s+/g, " ").trim().toLowerCase();
  * text that a field was extracted from. Lines are rebuilt with the same rules as the server-side
  * layout extraction, so the "source" snippet of a field maps back to positions on the page.
  */
-export function PdfCanvas({ url, highlight, onFallback }: { url: string; highlight: string | null; onFallback: () => void }) {
+export function PdfCanvas({
+  url,
+  highlight,
+  onFallback,
+  label,
+  loadingLabel,
+}: {
+  url: string;
+  highlight: string | null;
+  onFallback: () => void;
+  /** Text alternative for the rendered page (the canvas is an image for assistive technology). */
+  label: string;
+  loadingLabel: string;
+}) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [lines, setLines] = useState<Line[]>([]);
@@ -136,23 +150,25 @@ export function PdfCanvas({ url, highlight, onFallback }: { url: string; highlig
 
   useEffect(() => {
     if (!boxes.length) return;
-    wrapRef.current?.querySelector("[data-hl]")?.scrollIntoView({ block: "center", behavior: "smooth" });
+    wrapRef.current?.querySelector("[data-hl]")?.scrollIntoView({ block: "center", behavior: prefersReducedMotion() ? "auto" : "smooth" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [highlight, lines.length]);
 
   return (
     <div ref={wrapRef} className="relative w-full bg-slate-100">
       {loading && (
-        <div className="absolute inset-0 z-10 flex min-h-[520px] items-center justify-center text-slate-400">
+        <div className="absolute inset-0 z-10 flex min-h-[520px] items-center justify-center text-slate-500" role="status">
           <Spinner className="size-5" />
+          <span className="sr-only">{loadingLabel}</span>
         </div>
       )}
       <div className="relative mx-auto shadow-sm" style={size ? { width: size.w, height: size.h } : { minHeight: 520 }}>
-        <canvas ref={canvasRef} className="block bg-white" />
+        <canvas ref={canvasRef} className="block bg-white" role="img" aria-label={label} />
         {boxes.map((b, i) => (
           <div
             key={i}
             data-hl
+            aria-hidden
             className="pointer-events-none absolute rounded-[3px] bg-amber-300/35 ring-2 ring-amber-500/80"
             style={{ left: b.left, top: b.top, width: b.width, height: b.height }}
           />

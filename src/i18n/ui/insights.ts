@@ -19,6 +19,8 @@ export const chartDict = defineDict({
     currentLegend: "Laufende Woche (diese Demo)",
     noData: "Keine Daten",
     liveNote: "{week} (laufend, gemessen in dieser Demo): {value}",
+    legend: "Legende",
+    keyboardHint: "einzelne Wochen per Tabulatortaste, alle Werte auch als Tabelle",
   },
   en: {
     chart: "Chart",
@@ -38,6 +40,8 @@ export const chartDict = defineDict({
     currentLegend: "Current week (this demo)",
     noData: "No data",
     liveNote: "{week} (current, measured in this demo): {value}",
+    legend: "Legend",
+    keyboardHint: "individual weeks via the Tab key, all values also as a table",
   },
 });
 

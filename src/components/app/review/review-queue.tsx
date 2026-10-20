@@ -95,13 +95,13 @@ export function ReviewQueue({ items, users }: { items: DocListItem[]; users: { i
                         ) : (
                           <span className="text-[13px] text-slate-500">—</span>
                         )}
-                        {item.critical + item.warnings > 1 && <span className="mt-0.5 block text-xs text-slate-400">+{item.critical + item.warnings - 1}</span>}
+                        {item.critical + item.warnings > 1 && <span className="mt-0.5 block text-xs text-slate-500">+{item.critical + item.warnings - 1}</span>}
                       </td>
                       <td className="tabular px-3 py-3 text-right font-medium text-slate-900">{f.money(item.grossAmount ?? item.netAmount)}</td>
                       <td className={cn("px-3 py-3 text-[13px]", overdue ? "font-medium text-red-700" : "text-slate-600")}>{item.dueAt ? f.relative(item.dueAt) : "—"}</td>
                       <td className="px-3 py-3 text-[13px] text-slate-600">
                         {users.find((u) => u.id === item.assigneeId)?.name ?? "—"}
-                        <span className="block text-xs text-slate-400">{item.department ? d.department[item.department as keyof typeof d.department] : ""}</span>
+                        <span className="block text-xs text-slate-500">{item.department ? d.department[item.department as keyof typeof d.department] : ""}</span>
                       </td>
                       <td className="px-5 py-3 text-right">
                         <ButtonLink href={`/app/documents/${item.id}`} size="xs" variant="primary">

@@ -9,7 +9,9 @@
     "typecheck": "tsc --noEmit -p .",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "licenses": "node scripts/licenses.mjs",
+    "privacy": "node scripts/privacy-requests.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.135.0",
@@ -28,6 +30,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.59.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^22.20.5",

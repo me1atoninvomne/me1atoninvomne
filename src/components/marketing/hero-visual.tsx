@@ -1,31 +1,44 @@
 "use client";
 
-import { AlertTriangle, Check, FileText, Mail, ShieldCheck, Sparkles } from "lucide-react";
+import { AlertTriangle, Check, FileText, Mail, Pause, Play, ShieldCheck, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useT } from "@/i18n/client";
 import { marketingDict } from "@/i18n/ui/marketing";
 import { cn } from "@/lib/cn";
+import { prefersReducedMotion } from "@/lib/motion";
 
 /** Product visual built from real UI elements; steps through the processing stages. */
 export function HeroVisual() {
   const t = useT(marketingDict).visual;
   const [stage, setStage] = useState(3);
+  const [playing, setPlaying] = useState(false);
+
+  // Animate only without a reduced-motion preference; it can be paused (WCAG 2.2.2) and stops by
+  // itself after a few rounds, always ending in the complete state.
+  useEffect(() => {
+    setPlaying(!prefersReducedMotion());
+  }, []);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!playing) {
+      setStage(3);
+      return;
+    }
     // Start from the complete state (as rendered on the server) and only then loop through the stages.
     let s = 3;
+    let ticks = 0;
     const id = setInterval(() => {
       s = (s + 1) % 6; // two extra ticks to hold the final state
       setStage(Math.min(s, 3));
+      if (++ticks >= 18) setPlaying(false);
     }, 1500);
     return () => clearInterval(id);
-  }, []);
+  }, [playing]);
 
   const show = (n: number) => (stage >= n ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-1");
 
   return (
-    <div className="relative" aria-label={t.label}>
+    <figure className="relative" aria-label={t.label}>
       <div className="overflow-hidden rounded-2xl bg-white shadow-[0_24px_64px_-24px_rgba(14,27,48,0.35)] ring-1 ring-slate-200">
         <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-4 py-2.5">
           <span className="size-2.5 rounded-full bg-slate-200" />
@@ -33,6 +46,15 @@ export function HeroVisual() {
           <span className="size-2.5 rounded-full bg-slate-200" />
           <span className="ml-2 text-xs font-medium text-slate-500">FlowPilot AI · {t.inbox}</span>
           <span className="ml-auto hidden rounded-md bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold text-amber-800 sm:inline">{t.label}</span>
+          <button
+            type="button"
+            onClick={() => setPlaying((p) => !p)}
+            className="ml-auto rounded-md p-1 text-slate-500 hover:bg-slate-200/60 hover:text-slate-800 sm:ml-0"
+            aria-label={playing ? t.pause : t.play}
+            title={playing ? t.pause : t.play}
+          >
+            {playing ? <Pause className="size-3.5" /> : <Play className="size-3.5" />}
+          </button>
         </div>
 
         <ol className="flex gap-1 border-b border-slate-100 px-4 py-2.5" aria-hidden>
@@ -41,7 +63,7 @@ export function HeroVisual() {
               key={s}
               className={cn(
                 "flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-medium transition-colors duration-300",
-                i < stage ? "bg-emerald-50 text-emerald-700" : i === stage ? "bg-violet-100 text-violet-800" : "bg-slate-100 text-slate-400",
+                i < stage ? "bg-emerald-50 text-emerald-700" : i === stage ? "bg-violet-100 text-violet-800" : "bg-slate-100 text-slate-500",
               )}
             >
               {i < stage && <Check className="size-3" />}
@@ -58,7 +80,7 @@ export function HeroVisual() {
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline justify-between gap-2">
                 <p className="truncate text-[13px] font-semibold text-slate-900">{t.from}</p>
-                <span className="shrink-0 text-[11px] text-slate-400">{t.received}</span>
+                <span className="shrink-0 text-[11px] text-slate-500">{t.received}</span>
               </div>
               <p className="truncate text-[13px] text-slate-600">{t.subject}</p>
               <p className="mt-1 inline-flex items-center gap-1 text-[11px] text-slate-500">
@@ -77,7 +99,7 @@ export function HeroVisual() {
             <dl className="grid grid-cols-2 gap-x-3 gap-y-1.5 px-3 py-2.5">
               {t.fields.map(([k, v]) => (
                 <div key={k} className="min-w-0">
-                  <dt className="text-[10px] tracking-wide text-slate-400 uppercase">{k}</dt>
+                  <dt className="text-[10px] tracking-wide text-slate-500 uppercase">{k}</dt>
                   <dd className="truncate text-[12px] font-medium text-slate-800">{v}</dd>
                 </div>
               ))}
@@ -101,6 +123,6 @@ export function HeroVisual() {
           </div>
         </div>
       </div>
-    </div>
+    </figure>
   );
 }

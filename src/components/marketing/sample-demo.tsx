@@ -70,13 +70,12 @@ export function SampleDemo() {
 
   return (
     <div>
-      <div className="mb-5 flex flex-wrap gap-2" role="tablist" aria-label={t.title}>
+      <div className="mb-5 flex flex-wrap gap-2" role="group" aria-label={t.title}>
         {SAMPLES.map((s) => (
           <button
             key={s}
             type="button"
-            role="tab"
-            aria-selected={key === s}
+            aria-pressed={key === s}
             onClick={() => setKey(s)}
             className={cn(
               "rounded-full px-3.5 py-1.5 text-sm font-medium ring-1 transition-colors ring-inset",
@@ -131,7 +130,7 @@ export function SampleDemo() {
                     <dt className="shrink-0 text-[13px] text-slate-500">{fieldLabel(d, fl.key, data.docType)}</dt>
                     <dd className="flex min-w-0 items-baseline gap-2 text-right">
                       {fl.value == null ? (
-                        <span className="text-[13px] text-slate-400 italic">{t.notFound}</span>
+                        <span className="text-[13px] text-slate-500 italic">{t.notFound}</span>
                       ) : (
                         <span className="truncate text-[13px] font-medium text-slate-900">{format(fl.key, fl.value)}</span>
                       )}
@@ -182,7 +181,7 @@ export function SampleDemo() {
                   .filter((r) => r.code !== "RULE_CONTINUE" || data.routing.route === "auto")
                   .map((r, idx) => (
                     <li key={idx} className="flex gap-1.5">
-                      <span className="text-slate-400">•</span>
+                      <span className="text-slate-500">•</span>
                       {reasonText(r, d, f, (id) => data.ruleNames[id]?.[lang] ?? id)}
                     </li>
                   ))}
@@ -194,7 +193,7 @@ export function SampleDemo() {
                 {data.trace.map((s, idx) => (
                   <li key={idx} className="tabular inline-flex items-center gap-1 rounded-md bg-slate-50 px-2 py-1 text-xs text-slate-600 ring-1 ring-slate-200">
                     <span className="font-medium text-slate-800">{t.stepNames[s.step] ?? s.step}</span>
-                    <span className="text-slate-400">{s.ms < 1 ? "<1" : f.number(s.ms, s.ms < 10 ? 1 : 0)} ms</span>
+                    <span className="text-slate-500">{s.ms < 1 ? "<1" : f.number(s.ms, s.ms < 10 ? 1 : 0)} ms</span>
                   </li>
                 ))}
               </ol>

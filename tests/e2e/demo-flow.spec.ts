@@ -1,10 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
-
-async function startDemo(page: Page, industry = "manufacturing") {
-  const res = await page.request.post("/api/demo/start", { data: { industry } });
-  expect(res.ok()).toBeTruthy();
-  await page.request.post("/api/session/lang", { data: { lang: "de" } });
-}
+import type { Page } from "@playwright/test";
+import { expect, startDemo, test } from "./helpers";
 
 async function processInbox(page: Page) {
   await page.goto("/app/inbox");
@@ -55,9 +50,9 @@ test.describe("core flow: e-mail → document → review → decision → ERP", 
     await expect(page.getByRole("button", { name: "Freigeben", exact: true })).toBeDisabled();
 
     // Second person (administrator) approves – switched via the demo user menu.
-    await page.getByRole("button", { name: "Benutzer wechseln (Demo)" }).click();
+    await page.getByRole("button", { name: /Benutzer wechseln/ }).click();
     await page.getByRole("menuitem", { name: /Andrea Schulz/ }).click();
-    await expect(page.getByRole("button", { name: "Benutzer wechseln (Demo)" })).toContainText("Andrea Schulz", { timeout: 15_000 });
+    await expect(page.getByRole("button", { name: /Benutzer wechseln/ })).toContainText("Andrea Schulz", { timeout: 15_000 });
     const approve = page.getByRole("button", { name: "Freigeben", exact: true });
     await expect(approve).toBeEnabled();
     await approve.click();

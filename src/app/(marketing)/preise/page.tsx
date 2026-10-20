@@ -1,10 +1,10 @@
 import { ArrowRight, Check, FlaskConical, Minus } from "lucide-react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Faq } from "@/components/marketing/faq";
 import { Section } from "@/components/marketing/section";
 import { ButtonLink } from "@/components/ui/button";
 import { marketingPagesDict } from "@/i18n/ui/marketing-pages";
-import { cn } from "@/lib/cn";
 import { getLang } from "@/server/auth/session";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -23,15 +23,9 @@ export default async function PricingPage() {
         </div>
         <div className="grid gap-6 lg:grid-cols-3 lg:gap-4">
           {t.tiers.map((tier) => {
-            const featured = tier.key === "business";
+            // All packages are presented with equal weight – no "recommended" nudge.
             return (
-              <article
-                key={tier.key}
-                className={cn("relative flex flex-col rounded-2xl bg-white p-6 ring-1", featured ? "shadow-[var(--shadow-pop)] ring-2 ring-navy-800" : "ring-slate-200")}
-              >
-                {featured && (
-                  <p className="absolute -top-3 left-6 rounded-full bg-navy-900 px-2.5 py-0.5 text-xs font-medium text-white">{t.recommended}</p>
-                )}
+              <article key={tier.key} className="relative flex flex-col rounded-2xl bg-white p-6 ring-1 ring-slate-200">
                 <h2 className="text-lg font-semibold text-slate-900">{tier.name}</h2>
                 <p className="mt-1 text-sm text-slate-500 lg:min-h-10">{tier.tagline}</p>
                 <p className="mt-5 flex items-baseline gap-1.5">
@@ -58,13 +52,13 @@ export default async function PricingPage() {
                   <ul className="mt-2.5 space-y-2">
                     {tier.limits.map((i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
-                        <Minus className="mt-0.5 size-4 shrink-0 text-slate-400" />
+                        <Minus className="mt-0.5 size-4 shrink-0 text-slate-500" />
                         {i}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <ButtonLink href="/kontakt" variant={featured ? "primary" : "secondary"} className="mt-6">
+                <ButtonLink href="/kontakt" variant="secondary" className="mt-6">
                   {t.choose}
                 </ButtonLink>
               </article>
@@ -107,7 +101,61 @@ export default async function PricingPage() {
         </div>
       </Section>
 
-      <Section tone="muted" title="FAQ">
+      <Section id="kosten" tone="muted" title={t.costs.title} text={t.costs.text}>
+        <div
+          className="overflow-x-auto rounded-xl bg-white ring-1 ring-slate-200 focus-visible:outline-2 focus-visible:outline-blue-600"
+          tabIndex={0}
+          role="region"
+          aria-label={t.costs.caption}
+        >
+          <table className="w-full min-w-[640px] text-left text-sm">
+            <caption className="border-b border-slate-100 px-4 py-3 text-left text-[13px] font-medium text-slate-600">{t.costs.caption}</caption>
+            <thead className="bg-slate-50 text-slate-700">
+              <tr>
+                <th scope="col" className="px-4 py-2.5 font-semibold">
+                  {t.costs.item}
+                </th>
+                {t.tiers.map((tier) => (
+                  <th key={tier.key} scope="col" className="px-4 py-2.5 font-semibold">
+                    {tier.name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {t.costs.rows.map((row) => (
+                <tr key={row.label} className="align-top">
+                  <th scope="row" className="px-4 py-2.5 font-medium text-slate-800">
+                    {row.label}
+                  </th>
+                  {row.values.map((v, i) => (
+                    <td key={i} className="tabular px-4 py-2.5 text-slate-700">
+                      {v}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <dl className="mt-4 divide-y divide-slate-100 rounded-xl bg-white ring-1 ring-slate-200">
+          {t.costs.general.map((g) => (
+            <div key={g.label} className="grid gap-1 px-4 py-2.5 text-sm sm:grid-cols-[260px_1fr]">
+              <dt className="font-medium text-slate-800">{g.label}</dt>
+              <dd className="text-slate-700">{g.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-4 text-sm text-slate-600">
+          {t.costs.refundText}{" "}
+          <Link href="/erstattung" className="font-medium text-navy-700 underline underline-offset-2 hover:text-navy-900">
+            {t.costs.refund}
+          </Link>
+          .
+        </p>
+      </Section>
+
+      <Section title="FAQ">
         <div className="max-w-3xl">
           <Faq items={t.faq} />
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

@@ -7,8 +7,10 @@ import type { DocType, Extraction, FieldKey, LineItem, ValidationIssue } from "@
 import { fmt } from "@/i18n/core";
 import { useDomain, useFormat, useLang, useT } from "@/i18n/client";
 import { fieldLabel, issueText } from "@/i18n/domain";
+import { commonDict } from "@/i18n/ui/common";
 import { reviewDict } from "@/i18n/ui/review";
 import { cn } from "@/lib/cn";
+import { prefersReducedMotion } from "@/lib/motion";
 import type { DocumentDetail } from "@/server/services/queries";
 import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
@@ -19,11 +21,13 @@ import { Segmented } from "../../ui/tabs";
 import { Tooltip } from "../../ui/overlay";
 import { ConfidenceBadge, SeverityIcon } from "../badges";
 import { PdfCanvas } from "./pdf-canvas";
+import { ScrollX } from "../../ui/scroll-x";
 
 /* ---------- Document viewer ---------- */
 
 export function DocumentViewer({ detail, highlight }: { detail: DocumentDetail; highlight: string | null }) {
   const t = useT(reviewDict);
+  const c = useT(commonDict);
   const { doc } = detail;
   const hasPdf = doc.hasFile;
   const [mode, setMode] = useState<"pdf" | "text">(hasPdf ? "pdf" : "text");
@@ -34,7 +38,7 @@ export function DocumentViewer({ detail, highlight }: { detail: DocumentDetail; 
   useEffect(() => {
     if (mode !== "text" || !highlight) return;
     const el = textRef.current?.querySelector("mark");
-    el?.scrollIntoView({ block: "center", behavior: "smooth" });
+    el?.scrollIntoView({ block: "center", behavior: prefersReducedMotion() ? "auto" : "smooth" });
   }, [mode, highlight]);
 
   const text = doc.textContent ?? (detail.email?.body || "");
@@ -48,6 +52,7 @@ export function DocumentViewer({ detail, highlight }: { detail: DocumentDetail; 
           value={mode}
           onChange={setMode}
           size="xs"
+          label={c.viewGroup}
           options={[...(hasPdf ? [{ value: "pdf" as const, label: t.viewer.pdf }] : []), { value: "text" as const, label: t.viewer.text }]}
         />
         {hasPdf && (
@@ -61,12 +66,24 @@ export function DocumentViewer({ detail, highlight }: { detail: DocumentDetail; 
         nativeViewer ? (
           <iframe title={doc.fileName ?? "PDF"} src={`/api/documents/${doc.id}/file#toolbar=0&navpanes=0&view=FitH`} className="min-h-[520px] w-full flex-1 bg-slate-100 lg:min-h-[640px]" />
         ) : (
-          <div className="max-h-[78vh] overflow-auto">
-            <PdfCanvas url={`/api/documents/${doc.id}/file`} highlight={highlight} onFallback={fallback} />
+          <div className="max-h-[78vh] overflow-auto" tabIndex={0} role="region" aria-label={t.viewer.pdf}>
+            <PdfCanvas
+              url={`/api/documents/${doc.id}/file`}
+              highlight={highlight}
+              onFallback={fallback}
+              label={fmt(t.viewer.canvasLabel, { file: doc.fileName ?? doc.documentNumber ?? "PDF" })}
+              loadingLabel={t.viewer.loadingPdf}
+            />
           </div>
         )
       ) : (
-        <div ref={textRef} className="max-h-[680px] min-h-[320px] flex-1 overflow-auto bg-slate-50/60 px-4 py-3">
+        <div
+          ref={textRef}
+          className="max-h-[680px] min-h-[320px] flex-1 overflow-auto bg-slate-50/60 px-4 py-3"
+          tabIndex={0}
+          role="region"
+          aria-label={fmt(t.viewer.textLabel, { file: doc.fileName ?? doc.documentNumber ?? "" })}
+        >
           {!hasPdf && <p className="mb-2 text-xs text-slate-500">{t.viewer.noFile}</p>}
           {text.trim() ? (
             <pre className="font-mono text-[12px] leading-[1.7] whitespace-pre-wrap text-slate-700">
@@ -283,7 +300,7 @@ export function FieldsPanel({
             <div key={key} className={cn("grid gap-1.5 px-4 py-2.5 sm:grid-cols-[180px_minmax(0,1fr)] sm:items-center sm:px-5", isFlagged && "bg-amber-50/50")}>
               <dt className="flex items-center gap-1.5 text-[13px] text-slate-500">
                 {fieldLabel(d, key, extraction.docType)}
-                {isFlagged && <span className="size-1.5 rounded-full bg-amber-500" aria-label="Abweichung" />}
+                {isFlagged && <span className="size-1.5 rounded-full bg-amber-500" role="img" aria-label={t.flaggedField} />}
               </dt>
               <dd className="min-w-0">
                 {editable ? (
@@ -360,7 +377,7 @@ function FieldMeta({
       )}
       {lowConf && !confirmed && onConfirm && (
         <Tooltip content={t.confirmValue}>
-          <button type="button" onClick={onConfirm} className="rounded-md p-1 text-slate-400 hover:bg-emerald-50 hover:text-emerald-700" aria-label={t.confirmValue}>
+          <button type="button" onClick={onConfirm} className="rounded-md p-1 text-slate-500 hover:bg-emerald-50 hover:text-emerald-700" aria-label={t.confirmValue}>
             <Check className="size-3.5" />
           </button>
         </Tooltip>
@@ -370,8 +387,9 @@ function FieldMeta({
           <button
             type="button"
             onClick={onSource}
-            className={cn("rounded-md p-1 hover:bg-slate-100", sourceActive ? "text-amber-600" : "text-slate-400 hover:text-slate-700")}
+            className={cn("rounded-md p-1 hover:bg-slate-100", sourceActive ? "text-amber-700" : "text-slate-500 hover:text-slate-700")}
             aria-label={t.fieldSource}
+            aria-pressed={sourceActive}
           >
             <Eye className="size-3.5" />
           </button>
@@ -427,7 +445,7 @@ export function LineItemsPanel({
   return (
     <Card as="div">
       <CardHeader title={`${t.lineItems} (${items.length})`} />
-      <div className="overflow-x-auto">
+      <ScrollX>
         <table className="w-full min-w-[600px] text-[13px]">
           <thead>
             <tr className="border-b border-slate-100 text-left text-xs text-slate-500">
@@ -458,13 +476,13 @@ export function LineItemsPanel({
                   </td>
                   <td className="px-2 py-2 whitespace-nowrap">
                     <span className="font-mono text-xs text-slate-700">{li.articleNo ?? "—"}</span>
-                    {cmp?.matchedArticle && cmp.matchedArticle !== li.articleNo && <span className="block text-[11px] text-slate-400">→ {cmp.matchedArticle}</span>}
+                    {cmp?.matchedArticle && cmp.matchedArticle !== li.articleNo && <span className="block text-[11px] text-slate-500">→ {cmp.matchedArticle}</span>}
                     {!cmp?.matchedArticle && li.articleNo && <span className="block text-[11px] text-amber-700">{t.compare.notMatched}</span>}
                   </td>
                   <td className="max-w-[220px] px-2 py-2 text-slate-700">{li.description ?? "—"}</td>
                   <td className="px-2 py-2 text-right">
                     {numCell(i, "quantity", li.quantity, 0)}
-                    <span className="ml-1 text-xs text-slate-400">{li.unit}</span>
+                    <span className="ml-1 text-xs text-slate-500">{li.unit}</span>
                     {qtyDiff && !isCustomer && (
                       <span className="block text-[11px] text-amber-700">
                         {t.expected}: {f.number(cmp!.expectedQty!)}
@@ -474,7 +492,7 @@ export function LineItemsPanel({
                   <td className="px-2 py-2 text-right">
                     {numCell(i, "unitPrice", li.unitPrice, 2)}
                     {cmp?.expectedPrice != null && (priceDiff || isCustomer) && (
-                      <span className={cn("block text-[11px]", priceDiff ? "text-amber-700" : "text-slate-400")}>
+                      <span className={cn("block text-[11px]", priceDiff ? "text-amber-700" : "text-slate-500")}>
                         {t.compare.priceSource[cmp.priceSource ?? "list"]}: {f.money(cmp.expectedPrice)}
                       </span>
                     )}
@@ -485,7 +503,7 @@ export function LineItemsPanel({
             })}
           </tbody>
         </table>
-      </div>
+      </ScrollX>
     </Card>
   );
 }
@@ -563,7 +581,7 @@ export function ComparePanel({ detail }: { detail: DocumentDetail }) {
       {x && x.lineItems.length > 0 && (
         <Card as="div">
           <CardHeader title={t.compare.lines} />
-          <div className="overflow-x-auto">
+          <ScrollX>
             <table className="w-full min-w-[520px] text-[13px]">
               <thead>
                 <tr className="border-b border-slate-100 text-left text-xs text-slate-500">
@@ -596,14 +614,14 @@ export function ComparePanel({ detail }: { detail: DocumentDetail }) {
                         <span className={cn(qtyDiff && "font-semibold text-amber-700")}>{c?.expectedQty != null ? f.number(c.expectedQty) : "—"}</span>
                         {" / "}
                         <span className={cn(priceDiff && "font-semibold text-amber-700")}>{c?.expectedPrice != null ? f.money(c.expectedPrice) : "—"}</span>
-                        {c?.priceSource && <span className="block text-[11px] text-slate-400">{t.compare.priceSource[c.priceSource]}</span>}
+                        {c?.priceSource && <span className="block text-[11px] text-slate-500">{t.compare.priceSource[c.priceSource]}</span>}
                       </td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
-          </div>
+          </ScrollX>
         </Card>
       )}
     </div>
