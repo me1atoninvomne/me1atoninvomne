@@ -1,0 +1,22 @@
+name: build-exe
+on:
+  push:
+    branches: [claude/intelligent-tesla-obmzzv]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyinstaller
+      - run: pyinstaller --onefile --name Polina gift/polina.py
+      - run: pyinstaller --onefile --name Polina_en gift/polina.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Polina_gift
+          path: |
+            dist/Polina.exe
+            dist/Polina_en.exe
